@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shape Shifter Duel - Home</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/21.6.3/i18next.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-i18next/1.0.0/jquery-i18next.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto&family=Dancing+Script&family=Pacifico&family=Great+Vibes&family=Satisfy&family=Allura&family=Brush+Script+MT&family=Lobster&family=Zapfino&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Russo+One&family=Orbitron&family=Bangers&family=VT323&family=Audiowide&family=Major+Mono+Display&family=Anton&display=swap" rel="stylesheet"/>
+  <style>
+    .user-info {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+    }
+
+    .profile-img {
+      width: 80px;
+      height: 80px;
+      right: 30px;
+      border-radius: 50%;
+      border: 3px solid #00ffae;
+    }
+
+    #profile-username {
+      color: rgb(255, 255, 255);
+      font-family:Georgia, 'Times New Roman', Times, serif;
+      font-size: 1rem;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color: #800080;
+      color: #f9f9f9;
+      border-radius: 6px;
+      padding: 10px;
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 160px;
+      z-index: 1000;
+      box-shadow: 0 4px 8px rgba(255, 255, 255);
+    }
+
+    .dropdown button,
+    .dropdown span {
+      color: white;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .dropdown button:hover {
+      color: #ffffff;
+    }
+
+    .dropdown .logout-btn {
+      padding: 0.5rem 1rem;
+      background-color: #ffffff;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      color: black;
+    }
+
+    .dropdown .logout-btn:hover {
+      background-color: #980000;
+    }
+
+    .profile-dropdown-btn.open {
+      transform: rotate(180deg);
+      transition: transform 0.3s ease;
+    }
+
+    header {
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      padding: 10px;
+    }
+
+    .nav-links {
+      list-style-type: none;
+    }
+
+    .nav-links li {
+      display: inline;
+      margin-right: 20px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .login-link {
+      color: white;
+    }
+
+    .dropdown.show {
+      display: flex;
+    }
+    /* Updated Profile Username and Generation Styling */
+#profile-username {
+  color: #ffffff;
+    --primary-color: none;
+  font-family: 'Audiowide', cursive;
+  font-size: 1.2rem;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.4);
+  padding-right: 10px;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+#profile-username:hover {
+  color: #51b004;
+  transform: scale(1.1);
+}
+
+#profile-generation {
+    font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  color: #f9f9f9;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+#profile-generation:hover {
+  color: #ffcc00;
+}
+
+  </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul class="nav-links">
+              <li><a href="index.html" class="active" data-i18n="nav_home">Home</a></li>
+              <li><a href="about.html" data-i18n="nav_about">About</a></li>
+              <li><a href="play.html" data-i18n="nav_play">Play</a></li>
+              <li><a href="how-to-play.html" data-i18n="nav_how">How to Play</a></li>
+              <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+            </ul>
+          </nav>
+          <div class="user-dashboard" id="user-dashboard">
+            <div class="user-info" id="user-info">
+              <div class="user-profile" id="user-profile">
+                  <img id="profile-image" src="homepage11.jpg" alt="Profile Image" class="profile-img">
+                  <div class="username-generation">
+                    <span id="profile-username"></span>
+                    <span id="profile-generation"></span>
+                  </div>
+                  <button class="profile-dropdown-btn">▼</button>
+                  <div class="dropdown" id="profile-dropdown">
+                    <span id="profile-generation"></span>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
+                  </div>
+                </div>
+              <div id="guest-info" style="display: block;">
+                <a href="login.html" class="login-link">Login</a>
+              </div>
+            </div>
+          </div>
+        </header>
+        
+        <main style="background-image: url('homepage1.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;">
+          <section class="hero">
+            <div class="container">
+              <div class="hero-content">
+                <h2 data-i18n="welcome_message">Welcome to Shape Shifter Duel</h2>
+                <div class="cta-buttons">
+                  <a href="play.html" class="btn btn-primary" data-i18n="play_now">Play Now</a>
+                  <a href="how-to-play.html" class="btn btn-secondary" data-i18n="learn_how">Learn How to Play</a>
+                </div>
+              </div>
+              <div class="hero-image"></div>
+            </div>
+          </section>
+        
+          <section class="features-preview">
+            <div class="container">
+              <h2 data-i18n="game_features">Game Features</h2>
+              <div class="features">
+                <div class="feature">
+                  <h3 data-i18n="adventure_mode">Adventure Mode</h3>
+                  <p data-i18n="adventure_desc">Progress through increasingly difficult levels with new challenges and enemy patterns.</p>
+                </div>
+                <div class="feature">
+                  <h3 data-i18n="combat_mode">Combat Mode</h3>
+                  <p data-i18n="combat_desc">Face endless waves of enemies in an intense battle for high scores and survival.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        
+          <section class="testimonials" style="color: rgb(0, 0, 0);">
+            <div class="container">
+              <h2 data-i18n="player_testimonials">Player Testimonials</h2>
+              <div class="testimonial-grid">
+                <div class="testimonial" style="background-color: rgba(0, 0, 0, 0.5); color: white;">
+                  <p data-i18n="testimonial_1_text">"The shape-shifting mechanics add a whole new layer of strategy to the classic arcade shooter format!"</p>
+                  <p class="author" data-i18n="testimonial_1_author">- Arcade Enthusiast</p>
+                </div>
+                <div class="testimonial" style="background-color: rgba(0, 0, 0, 0.5); color: white;">
+                  <p data-i18n="testimonial_2_text">"I love how the difficulty gradually increases. The combat mode is perfect for when I just want to jump in for a quick gaming session."</p>
+                  <p class="author" data-i18n="testimonial_2_author">- Casual Gamer</p>
+                </div>
+                <div class="testimonial" style="background-color: rgba(0, 0, 0, 0.5); color: white;">
+                  <p data-i18n="testimonial_3_text">"The retro aesthetic combined with modern gameplay mechanics makes this a standout indie game."</p>
+                  <p class="author" data-i18n="testimonial_3_author">- Game Reviewer</p>
+                </div>                
+              </div>
+            </div>
+          </section>
+        </main>
+        
+        <footer style="background-color: black;">
+          <div class="container">
+            <div class="footer-grid" style="display: flex;">
+              <div class="footer-section">
+                <h4 data-i18n="navigation">Navigation</h4>
+                <ul>
+                  <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+                  <li><a href="about.html" data-i18n="nav_about">About</a></li>
+                  <li><a href="play.html" data-i18n="nav_play">Play</a></li>
+                  <li><a href="how-to-play.html" data-i18n="nav_how">How to Play</a></li>
+                  <li><a href="login.html" data-i18n="login_signup">Login/Signup</a></li>
+<li><a href="contact.html" data-i18n="nav_contact">Contact</a></li></div>
+<div class="footer-section">
+
+<h4 data-i18n="stay_updated">Stay Updated</h4>
+<p data-i18n="newsletter_text">Subscribe to our newsletter...</p>
+<input type="email" placeholder="Your email address" data-i18n="[placeholder]email_placeholder">
+<button type="submit" class="btn btn-accent" data-i18n="subscribe_button">Subscribe</button>
+<p data-i18n="contact_info">Contact:</p>
+<a href="mailto:support@shapeshifterduel.com" data-i18n="support_email">support@shapeshifterduel.com</a> </div>
+              </div>
+            </div>
+            <div class="footer-bottom">
+              <div class="language-selector">
+                <select>
+                  <option value="en">English</option>
+                  <option value="es">Español</option>
+                  <option value="fr">Français</option>
+                  <option value="de">Deutsch</option>
+                  <option value="te">తెలుగు</option>
+                  <option value="ja">日本</option>
+                </select>
+              </div>
+              <p class="copyright">
+                &copy; 2025 Shape Shifter Duel. All rights reserved.
+              </p>
+            </div>
+          </div>
+        </footer>
+  <script>
+    // Adjusted to use age instead of birth year
+    function getGeneration(age) {
+      const currentYear = new Date().getFullYear();
+      const birthYear = currentYear - age; // Calculate birth year from age
+      
+      if (birthYear >= 1901 && birthYear <= 1927) return "The Greatest Generation";
+      if (birthYear >= 1928 && birthYear <= 1945) return "The Silent Generation";
+      if (birthYear >= 1946 && birthYear <= 1964) return "Baby Boomers";
+      if (birthYear >= 1965 && birthYear <= 1980) return "Gen X";
+      if (birthYear >= 1981 && birthYear <= 1996) return "Millennials";
+      if (birthYear >= 1997 && birthYear <= 2012) return "Gen Z";
+      if (birthYear >= 2013 && birthYear <= 2025) return "Gen Alpha";
+      if (birthYear >= 2025 && birthYear <= 2039) return "Gen Beta";
+      return "Unknown Generation";
+    }
+  
+    // Function to update user display
+    function updateUserDisplay() {
+      const currentUser = localStorage.getItem('currentUser');
+      const guestInfo = document.getElementById('guest-info');
+      const userProfile = document.getElementById('user-profile');
+      const profileUsername = document.getElementById('profile-username');
+      const profileGeneration = document.getElementById('profile-generation');
+      const profileDropdown = document.getElementById('profile-dropdown');
+      const profileDropdownBtn = document.querySelector('.profile-dropdown-btn');
+    
+      if (currentUser) {
+        guestInfo.style.display = 'none';
+        userProfile.style.display = 'flex';
+        const user = JSON.parse(currentUser);
+        profileUsername.textContent = user.username;
+        
+        // Use age instead of birth year
+        const age = user.age;
+        profileGeneration.textContent = `${getGeneration(age)}`;
+      } else {
+        profileDropdown.classList.remove('show');
+        profileDropdownBtn.classList.remove('open');
+        guestInfo.style.display = 'block';
+        userProfile.style.display = 'none';
+      }
+    }
+  
+    // Logout function
+    function logout() {
+      localStorage.removeItem('currentUser');
+      updateUserDisplay();
+    }
+  
+    // Handle dropdown click event
+    document.addEventListener('click', function (event) {
+      const profileDropdown = document.getElementById('profile-dropdown');
+      const profileDropdownBtn = document.querySelector('.profile-dropdown-btn');
+      const userProfile = document.getElementById('user-profile');
+    
+      if (userProfile.contains(event.target)) {
+        if (event.target.classList.contains('profile-dropdown-btn')) {
+          profileDropdown.classList.toggle('show');
+          profileDropdownBtn.classList.toggle('open');
+        }
+      } else {
+        profileDropdown.classList.remove('show');
+        profileDropdownBtn.classList.remove('open');
+      }
+    });
+  
+    // On page load, update the user display
+    window.onload = updateUserDisplay;
+    const resources = {
+  en: {
+    translation: {
+      "welcome_message": "Welcome to Shape Shifter Duel",
+      "play_now": "Play Now",
+      "learn_how": "Learn How to Play",
+      "game_features": "Game Features",
+      "adventure_mode": "Adventure Mode",
+      "adventure_desc": "Progress through increasingly difficult levels with new challenges and enemy patterns.",
+      "combat_mode": "Combat Mode",
+      "combat_desc": "Face endless waves of enemies in an intense battle for high scores and survival.",
+      "nav_home": "Home",
+      "nav_about": "About",
+      "nav_play": "Play",
+      "nav_how": "How to Play",
+      "nav_contact": "Contact",
+      "player_testimonials": "Player Testimonials",
+      "navigation": "Navigation",
+       // ... other translations ...
+       "testimonial_1_text": "The shape-shifting mechanics add a whole new layer of strategy to the classic arcade shooter format!",
+          "testimonial_1_author": "- Arcade Enthusiast",
+          "testimonial_2_text": "I love how the difficulty gradually increases. The combat mode is perfect for when I just want to jump in for a quick gaming session.",
+          "testimonial_2_author": "- Casual Gamer",
+          "testimonial_3_text": "The retro aesthetic combined with modern gameplay mechanics makes this a standout indie game.",
+          "testimonial_3_author": "- Game Reviewer","login_signup": "Login / Signup",
+    "nav_contact": "Contact",
+    "connect_with_us": "Connect With Us",
+    "social_discord": "Discord",
+    "social_youtube": "YouTube",
+    "social_twitter": "Twitter",
+    "social_instagram": "Instagram",
+    "stay_updated": "Stay Updated",
+    "newsletter_text": "Subscribe to our newsletter for updates on new features and tournaments.",
+    "email_placeholder": "Your email address",
+    "subscribe_button": "Subscribe",
+    "contact_info": "Contact",
+    "support_email": "Support: support@shapeshifterduel.com"
+    }
+  },
+  es: {
+    translation: {
+      "welcome_message": "Bienvenido a Shape Shifter Duel",
+      "play_now": "Jugar ahora",
+      "learn_how": "Aprende a jugar",
+      "game_features": "Características del juego",
+      "adventure_mode": "Modo Aventura",
+      "adventure_desc": "Avanza por niveles cada vez más difíciles con nuevos desafíos y patrones enemigos.",
+      "combat_mode": "Modo Combate",
+      "combat_desc": "Enfrenta olas interminables de enemigos en una batalla intensa por puntuaciones altas y supervivencia.",
+      "nav_home": "Inicio",
+      "nav_about": "Acerca de",
+      "nav_play": "Jugar",
+      "nav_how": "Cómo jugar",
+      "nav_contact": "Contacto",
+      "player_testimonials": "Testimonios de Jugadores",
+      "navigation": "Navegación", "testimonial_1_text": "¡Las mecánicas de cambio de forma agregan una nueva capa de estrategia al clásico juego de disparos arcade!",
+          "testimonial_1_author": "- Entusiasta de Arcade",
+          "testimonial_2_text": "Me encanta cómo la dificultad aumenta gradualmente. El modo combate es perfecto para sesiones rápidas.",
+          "testimonial_2_author": "- Jugador Casual",
+          "testimonial_3_text": "La estética retro combinada con mecánicas modernas hace de este un juego indie destacado.",
+          "testimonial_3_author": "- Reseñador de Juegos","login_signup": "Iniciar sesión / Registrarse",
+    "nav_contact": "Contacto",
+    "connect_with_us": "Conéctate con nosotros",
+    "social_discord": "Discord",
+    "social_youtube": "YouTube",
+    "social_twitter": "Twitter",
+    "social_instagram": "Instagram",
+    "stay_updated": "Mantente actualizado",
+    "newsletter_text": "Suscríbete a nuestro boletín para recibir actualizaciones sobre nuevas funciones y torneos.",
+    "email_placeholder": "Tu dirección de correo electrónico",
+    "subscribe_button": "Suscribirse",
+    "contact_info": "Contacto",
+    "support_email": "Soporte: support@shapeshifterduel.com"
+    }
+  },
+  fr: {
+    translation: {
+      "welcome_message": "Bienvenue à Shape Shifter Duel",
+      "play_now": "Jouer maintenant",
+      "learn_how": "Apprendre à jouer",
+      "game_features": "Fonctionnalités du jeu",
+      "adventure_mode": "Mode Aventure",
+      "adventure_desc": "Progressez à travers des niveaux de plus en plus difficiles avec de nouveaux défis et modèles d'ennemis.",
+      "combat_mode": "Mode Combat",
+      "combat_desc": "Affrontez des vagues infinies d'ennemis dans une bataille intense pour des scores élevés et la survie.",
+      "nav_home": "Accueil",
+      "nav_about": "À propos",
+      "nav_play": "Jouer",
+      "nav_how": "Comment jouer",
+      "nav_contact": "Contact",
+      "player_testimonials": "Témoignages de Joueurs",
+      "navigation": "Navigation",  "testimonial_1_text": "Les mécaniques de métamorphose ajoutent une toute nouvelle stratégie au format classique du shooter arcade !",
+          "testimonial_1_author": "- Passionné d'arcade",
+          "testimonial_2_text": "J'adore la montée progressive de la difficulté. Le mode combat est parfait pour une session rapide.",
+          "testimonial_2_author": "- Joueur Occasionnel",
+          "testimonial_3_text": "L'esthétique rétro combinée à des mécaniques modernes fait de ce jeu indépendant un incontournable.",
+          "testimonial_3_author": "- Critique de jeux", "login_signup": "Connexion / Inscription",
+    "nav_contact": "Contact",
+    "connect_with_us": "Connectez-vous avec nous",
+    "social_discord": "Discord",
+    "social_youtube": "YouTube",
+    "social_twitter": "Twitter",
+    "social_instagram": "Instagram",
+    "stay_updated": "Restez informé",
+    "newsletter_text": "Abonnez-vous à notre newsletter pour recevoir des mises à jour sur les nouvelles fonctionnalités et tournois.",
+    "email_placeholder": "Votre adresse e-mail",
+    "subscribe_button": "S'abonner",
+    "contact_info": "Contact",
+    "support_email": "Support : support@shapeshifterduel.com"
+    }
+  },
+  de: {
+    translation: {
+      "welcome_message": "Willkommen bei Shape Shifter Duel",
+      "play_now": "Jetzt spielen",
+      "learn_how": "Lerne zu spielen",
+      "game_features": "Spiel-Features",
+      "adventure_mode": "Abenteuer-Modus",
+      "adventure_desc": "Durchlaufe zunehmend schwierigere Level mit neuen Herausforderungen und Gegnern.",
+      "combat_mode": "Kampfmodus",
+      "combat_desc": "Stelle dich endlosen Gegnerwellen in einem intensiven Kampf um Punkte und Überleben.",
+      "nav_home": "Startseite",
+      "nav_about": "Über uns",
+      "nav_play": "Spielen",
+      "nav_how": "Wie man spielt",
+      "nav_contact": "Kontakt",
+      "player_testimonials": "Spielermeinungen",
+      "navigation": "Navigation","testimonial_1_text": "Die Formwechsel-Mechanik bringt eine ganz neue strategische Ebene in das klassische Arcade-Shooter-Format!",
+          "testimonial_1_author": "- Arcade-Fan",
+          "testimonial_2_text": "Ich liebe es, wie die Schwierigkeit allmählich steigt. Der Kampfmodus ist ideal für schnelle Spielsessions.",
+          "testimonial_2_author": "- Gelegenheitsspieler",
+          "testimonial_3_text": "Der Retro-Look gepaart mit modernen Spielmechaniken macht dieses Indie-Spiel zu etwas Besonderem.",
+          "testimonial_3_author": "- Spielkritiker","login_signup": "Anmelden / Registrieren",
+    "nav_contact": "Kontakt",
+    "connect_with_us": "Verbinden Sie sich mit uns",
+    "social_discord": "Discord",
+    "social_youtube": "YouTube",
+    "social_twitter": "Twitter",
+    "social_instagram": "Instagram",
+    "stay_updated": "Bleiben Sie informiert",
+    "newsletter_text": "Abonnieren Sie unseren Newsletter für Updates zu neuen Funktionen und Turnieren.",
+    "email_placeholder": "Ihre E-Mail-Adresse",
+    "subscribe_button": "Abonnieren",
+    "contact_info": "Kontakt",
+    "support_email": "Support: support@shapeshifterduel.com"
+    }
+  },
+  ja: {
+    translation: {
+  "welcome_message": "シェイプシフターデュエルへようこそ",
+  "play_now": "今すぐプレイ",
+  "learn_how": "遊び方を学ぶ",
+  "game_features": "ゲームの特徴",
+  "adventure_mode": "アドベンチャーモード",
+  "adventure_desc": "新たな挑戦と敵パターンで困難なステージを進んでいこう。",
+  "combat_mode": "コンバットモード",
+  "combat_desc": "無限の敵の波に挑み、高スコアと生存を目指そう。",
+  "nav_home": "ホーム",
+  "nav_about": "概要",
+  "nav_play": "プレイ",
+  "nav_how": "遊び方",
+  "nav_contact": "お問い合わせ",
+  "player_testimonials": "プレイヤーの声",
+  "navigation": "ナビゲーション",
+  "testimonial_1_text": "シェイプシフトのメカニクスがクラシックなアーケードシューティングに新しい戦略性を加えている！",
+  "testimonial_1_author": "- アーケードファン",
+  "testimonial_2_text": "難易度が上がっていく感じが好きです。短い時間で遊べるコンバットモードも最高。",
+  "testimonial_2_author": "- カジュアルゲーマー",
+  "testimonial_3_text": "レトロなビジュアルと現代的なゲームプレイの融合がこのゲームをユニークにしている。",
+  "testimonial_3_author": "- ゲームレビュアー", "login_signup": "ログイン / サインアップ",
+    "nav_contact": "お問い合わせ",
+    "connect_with_us": "私たちとつながる",
+    "social_discord": "ディスコード",
+    "social_youtube": "ユーチューブ",
+    "social_twitter": "ツイッター",
+    "social_instagram": "インスタグラム",
+    "stay_updated": "最新情報を受け取る",
+    "newsletter_text": "新機能やトーナメントのアップデートを受け取るには、ニュースレターを購読してください。",
+    "email_placeholder": "あなたのメールアドレス",
+    "subscribe_button": "購読する",
+    "contact_info": "連絡先",
+    "support_email": "サポート: support@shapeshifterduel.com"
+}
+
+  },
+  te: {
+    translation: {
+      "welcome_message": "షేప్ షిఫ్టర్ డ్యూయల్‌కు స్వాగతం",
+      "play_now": "ఇప్పుడు ఆడు",
+      "learn_how": "ఆడటాన్ని నేర్చుకోండి",
+      "game_features": "గేమ్ లక్షణాలు",
+      "adventure_mode": "అడ్వెంచర్ మోడ్",
+      "adventure_desc": "కొత్త సవాళ్లు మరియు శత్రు నమూనాలతో కఠినమైన స్థాయిలలో ముందుకు సాగండి.",
+      "combat_mode": "కాంబాట్ మోడ్",
+      "combat_desc": "అంతులేని శత్రువుల తరంగాలను ఎదుర్కొని అధిక స్కోర్లు మరియు జీవనానికి పోరాడండి.",
+      "nav_home": "హోం",
+      "nav_about": "గురించి",
+      "nav_play": "ఆడండి",
+      "nav_how": "ఆడటం ఎలా",
+      "nav_contact": "సంప్రదించండి",
+      "player_testimonials": "ఆడిన వారి అభిప్రాయాలు",
+      "navigation": "నావిగేషన్", "testimonial_1_text": "షేప్ షిఫ్టింగ్ మెకానిక్స్ క్లాసిక్ ఆర్కేడ్ షూటర్ గేమ్‌కి కొత్త వ్యూహాన్ని జోడించాయి!",
+          "testimonial_1_author": "- ఆర్కేడ్ అభిమాని",
+          "testimonial_2_text": "గేమ్ కష్టతరంగా మారుతూ ఉండటం నాకు బాగా నచ్చింది. కొంచెం సమయం ఉన్నప్పుడు కాంబాట్ మోడ్ చాలా సరళమైనది.",
+          "testimonial_2_author": "- సాధారణ గేమర్",
+          "testimonial_3_text": "రెట్రో లుక్ మరియు ఆధునిక గేమ్‌ప్లే కలయిక ఈ గేమ్‌ను ప్రత్యేకంగా నిలబెడుతుంది.",
+          "testimonial_3_author": "- గేమ్ సమీక్షకుడు","login_signup": "లాగిన్ / సైన్ అప్",
+    "nav_contact": "సంప్రదించండి",
+    "connect_with_us": "మాతో కనెక్ట్ అవ్వండి",
+    "social_discord": "డిస్కార్డ్",
+    "social_youtube": "యూట్యూబ్",
+    "social_twitter": "ట్విట్టర్",
+    "social_instagram": "ఇన్‌స్టాగ్రామ్",
+    "stay_updated": "తాజా సమాచారం పొందండి",
+    "newsletter_text": "కొత్త ఫీచర్లు మరియు టోర్నమెంట్లపై నవీకరణల కోసం మా న్యూస్‌లెటర్‌ను చందా చేయండి.",
+    "email_placeholder": "మీ ఇమెయిల్ చిరునామా",
+    "subscribe_button": "చందా",
+    "contact_info": "సంప్రదించండి",
+    "support_email": "మద్దతు: support@shapeshifterduel.com"
+    }
+  }
+};
+    i18next.init({
+      lng: 'en',
+      debug: true,
+      resources
+    }, function(err, t) {
+      jqueryI18next.init(i18next, $, { useOptionsAttr: true });
+      $('body').localize();
+    });
+
+    document.querySelector('.language-selector select').addEventListener('change', function () {
+      const selectedLang = this.value;
+      i18next.changeLanguage(selectedLang, () => {
+        $('body').localize();
+      });
+    });
+  </script>
+  
+</body>
+</html>

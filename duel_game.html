@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shape Shifting Duel Game</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282c34;
+        }
+
+        .container {
+            display: flex;
+            width: 800px;
+            height: 700px;
+        }
+
+        .predefined-game, .user-game {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .predefined-game {
+            background-color: #f0f0f0;
+            border-right: 2px solid #000;
+        }
+
+        .user-game {
+            background-color: #ffffff;
+        }
+
+        canvas {
+            border: 2px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="predefined-game" id="predefinedGame">
+            <h1>Predefined Game</h1>
+            <canvas id="predefinedCanvas" width="400" height="600"></canvas>
+        </div>
+        <div class="user-game" id="userGame">
+            <h1>Your Game</h1>
+            <canvas id="userCanvas" width="400" height="600"></canvas>
+        </div>
+    </div>
+    <script src="duel_game.js"></script>
+</body>
+</html>

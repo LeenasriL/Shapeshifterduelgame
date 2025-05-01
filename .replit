@@ -1,0 +1,74 @@
+modules = ["java", "nodejs-20"]
+
+[nix]
+channel = "stable-24_05"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "JavaGame"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "shapeshifter_game"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "WebShapeShifterGame"
+
+[[workflows.workflow]]
+name = "JavaGame"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "javac *.java && java ShapeShifterDuel"
+
+[[workflows.workflow]]
+name = "shapeshifter_game"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "javac ShapeShifterDuel.java && java ShapeShifterDuel"
+
+[[workflows.workflow]]
+name = "WebShapeShifterGame"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "node server.js"
+waitForPort = 5000
+
+[deployment]
+run = ["sh", "-c", "javac *.java && java ShapeShifterDuel"]
+
+[[ports]]
+localPort = 5000
+externalPort = 80

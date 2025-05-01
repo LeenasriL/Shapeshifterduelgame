@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shape Shifter Duel - How to Play</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto&family=Dancing+Script&family=Pacifico&family=Great+Vibes&family=Satisfy&family=Allura&family=Brush+Script+MT&family=Lobster&family=Zapfino&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Russo+One&family=Orbitron&family=Bangers&family=VT323&family=Audiowide&family=Major+Mono+Display&family=Anton&display=swap" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/21.6.3/i18next.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-i18next/1.0.0/jquery-i18next.min.js"></script><style>
+        .user-info {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+        }
+
+        .user-profile {
+          display: none; /* Hidden by default */
+          align-items: center;
+          gap: 10px;
+          position: relative;
+        }
+
+        .profile-img {
+          width: 80px;
+          height: 80px;
+          right: 30px;
+          border-radius: 50%;
+          border: 3px solid #00ffae;
+        }
+
+        #profile-username {
+          color: rgb(255, 255, 255);
+          font-family:Georgia, 'Times New Roman', Times, serif;
+          font-size: 1rem;
+        }
+
+        .dropdown {
+          position: absolute;
+          top: 100%;
+          right: 0;
+          background-color: #800080;
+          color: #f9f9f9;
+          border-radius: 6px;
+          padding: 10px;
+          display: none;
+          flex-direction: column;
+          gap: 20px;
+          min-width: 160px;
+          z-index: 1000;
+          box-shadow: 0 4px 8px rgba(255, 255, 255);
+        }
+
+        .dropdown button,
+        .dropdown span {
+          color: white;
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-family: 'Roboto', sans-serif;
+        }
+
+        .dropdown button:hover {
+          color: #ffffff;
+        }
+
+        .dropdown .logout-btn {
+          padding: 0.5rem 1rem;
+          background-color: #ffffff;
+          border: none;
+          cursor: pointer;
+          border-radius: 4px;
+          color: black;
+        }
+
+        .dropdown .logout-btn:hover {
+          background-color: #980000;
+        }
+
+        .profile-dropdown-btn.open {
+          transform: rotate(180deg);
+          transition: transform 0.3s ease;
+        }
+
+        header {
+          background-color: rgba(0, 0, 0, 0.5);
+          justify-content: center;
+          padding: 10px;
+        }
+
+        .nav-links {
+          list-style-type: none;
+        }
+
+        .nav-links li {
+          display: inline;
+          margin-right: 20px;
+        }
+
+        .nav-links a {
+          color: white;
+          text-decoration: none;
+        }
+
+        .login-link {
+          color: white;
+        }
+
+        .dropdown.show {
+          display: flex;
+        }
+        /* Updated Profile Username and Generation Styling */
+        #profile-username {
+          color: #ffffff;
+            --primary-color: none;
+          font-family: 'Audiowide', cursive;
+          font-size: 1.2rem;
+          text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.4);
+          padding-right: 10px;
+          transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        #profile-username:hover {
+          color: #51b004;
+          transform: scale(1.1);
+        }
+
+        #profile-generation {
+            font-family: 'Orbitron', sans-serif;
+          font-size: 1rem;
+          color: #f9f9f9;
+          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+          font-weight: 400;
+          letter-spacing: 0.5px;
+          transition: color 0.3s ease;
+        }
+
+        #profile-generation:hover {
+          color: #ffcc00;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html" data-i18n="home">Home</a></li>
+                <li><a href="about.html" data-i18n="about">About</a></li>
+                <li><a href="play.html" data-i18n="play">Play</a></li>
+                <li><a href="how-to-play.html" class="active" data-i18n="how_to_play">How to Play</a></li>
+                <li><a href="contact.html" data-i18n="contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="user-dashboard" id="user-dashboard">
+            <div class="user-info" id="user-info">
+                <div class="user-profile" id="user-profile">
+                    <img id="profile-image" src="homepage11.jpg" alt="Profile Image" class="profile-img">
+                    <div class="username-generation">
+                        <span id="profile-username"></span>
+                        <span id="profile-generation"></span>
+                    </div>
+                    <button class="profile-dropdown-btn">▼</button>
+                    <div class="dropdown" id="profile-dropdown">
+                        <span id="profile-generation-dropdown"></span>
+                        <button class="logout-btn" onclick="logout()" data-i18n="logout">Logout</button>
+                    </div>
+                </div>
+                <div id="guest-info" style="display: block;">
+                    <a href="login.html" class="login-link" data-i18n="login">Login</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main style="position: relative;">
+        <!-- Background Image with 0.5 Opacity -->
+        <div style="
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('homepage2.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            opacity: 0.5;
+            z-index: 0;
+        "></div>
+    
+        <!-- Foreground Content -->
+        <section class="instructions-section" style="position: relative; z-index: 1;">
+            <div class="container">
+                <h2 data-i18n="how_to_play_title">How to Play Shape Shifter Duel</h2>
+
+                <div class="instruction-panel">
+                    <h3 data-i18n="game_modes">Game Modes</h3>
+                    <div class="instruction-grid">
+                        <div class="instruction-card">
+                            <h4 data-i18n="single_player">Single Player Mode</h4>
+                            <p data-i18n="single_player_desc">Progress through 5 levels of increasing difficulty with specific objectives.</p>
+                            <ul>
+                                <li data-i18n="single_player_point1">Each level has a point goal to advance</li>
+                                <li data-i18n="single_player_point2">Enemy patterns become more complex with each level</li>
+                                <li data-i18n="single_player_point3">Weapon upgrades unlock as you progress</li>
+                            </ul>
+                            <p><strong data-i18n="to_start">To Start:</strong> <kbd>S</kbd> <span data-i18n="start_single">at the main menu, then select a level (1-5)</span></p>
+                        </div>
+                        <div class="instruction-card">
+                            <h4 data-i18n="duel_mode">Duel Mode</h4>
+                            <p data-i18n="duel_mode_desc">Compete against another player locally on the same computer.</p>
+                            <ul>
+                                <li data-i18n="duel_mode_point1">Two players battle each other in a strategic duel</li>
+                                <li data-i18n="duel_mode_point2">Players can pick up power-ups to gain advantages</li>
+                                <li data-i18n="duel_mode_point3">The first player to defeat the other wins</li>
+                            </ul>
+                            <p><strong data-i18n="to_start">To Start:</strong> <kbd>D</kbd> <span data-i18n="start_duel">at the main menu, then select a level (1-5)</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="instruction-panel">
+                    <h3 data-i18n="level_differences">Level Differences</h3>
+
+                    <h4 data-i18n="single_player_levels">Single Player Mode Levels</h4>
+                    <div class="level-differences">
+                        <table>
+                            <tr>
+                                <th data-i18n="level">Level</th>
+                                <th data-i18n="player_health">Player Health</th>
+                                <th data-i18n="enemy_speed">Enemy Speed</th>
+                                <th data-i18n="spawn_rate">Spawn Rate</th>
+                                <th data-i18n="special_features">Special Features</th>
+                            </tr>
+                            <tr>
+                                <td data-i18n="level_1">Level 1</td>
+                                <td>100 HP</td>
+                                <td data-i18n="slow">Slow</td>
+                                <td data-i18ne="low">Low</td>
+                                <td data-i18n="basic_weapon">Basic weapon (single projectile)</td>
+                            </tr>
+                            <tr>
+                                <td data-i18n="level_2">Level 2</td>
+                                <td>80 HP</td>
+                                <td data-i18n="medium">Medium</td>
+                                <td data-i18n="medium">Medium</td>
+                                <td data-i18n="triple_projectile">Triple projectile spread</td>
+                            </tr>
+                            <tr>
+                                <td data-i18n="level_3">Level 3</td>
+                                <td>60 HP</td>
+                                <td data-i18n="fast">Fast</td>
+                                <td data-i18n="high">High</td>
+                                <td data-i18n="five_projectile">5-projectile spread pattern</td>
+                            </tr>
+                            <tr>
+                                <td data-i18n="level_4">Level 4</td>
+                                <td>40 HP</td>
+                                <td data-i18n="very_fast">Very Fast</td>
+                                <td data-i18n="very_high">Very High</td>
+                                <td data-i18n="powerup_frequency">Increased power-up frequency</td>
+                            </tr>
+                            <tr>
+                                <td data-i18n="level_5">Level 5</td>
+                                <td>20 HP</td>
+                                <td data-i18n="extreme">Extreme</td>
+                                <td data-i18n="maximum">Maximum</td>
+                                <td data-i18n="advanced_weapon">Advanced weapon pattern with angled shots</td>
+                            </tr>
+                            </table>
+                            </div>
+                            
+                            <h4 data-i18n="duel_mode_levels">Duel Mode Levels</h4>
+                            <div class="level-differences">
+                                <table>
+                                    <tr>
+                                        <th data-i18n="level">Level</th>
+                                        <th data-i18n="arena_size">Arena Size</th>
+                                        <th data-i18n="player_health">Player Health</th>
+                                        <th data-i18n="powerup_types">Power-Up Types</th>
+                                        <th data-i18n="special_features">Special Features</th>
+                                    </tr>
+                                    <tr>
+                                        <td data-i18n="level_1">Level 1</td>
+                                        <td data-i18n="full_arena">Full Arena</td>
+                                        <td>100 HP (both players)</td>
+                                        <td data-i18n="health_only">Health only</td>
+                                        <td data-i18n="basic_gameplay">Basic gameplay</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-i18n="level_2">Level 2</td>
+                                        <td data-i18n="full_arena">Full Arena</td>
+                                        <td>80 HP (both players)</td>
+                                        <td data-i18n="health_shield">Health, Shield</td>
+                                        <td data-i18n="faster_projectiles">Faster projectiles</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-i18n="level_3">Level 3</td>
+                                        <td data-i18n="reduced_size">Reduced Size</td>
+                                        <td>60 HP (both players)</td>
+                                        <td data-i18n="health_shield_speed">Health, Shield, Speed</td>
+                                        <td data-i18n="environmental_hazards">Environmental hazards</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-i18n="level_4">Level 4</td>
+                                        <td data-i18n="reduced_size">Reduced Size</td>
+                                        <td>40 HP (both players)</td>
+                                        <td data-i18n="all_types">All types, more frequent</td>
+                                        <td data-i18n="moving_obstacles">Moving obstacles</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-i18n="level_5">Level 5</td>
+                                        <td data-i18n="minimal_size">Minimal Size</td>
+                                        <td>20 HP (both players)</td>
+                                        <td data-i18n="random_powerups">Random power-ups</td>
+                                        <td data-i18n="instant_death_zones">Shape-shifting obstacles, instant death zones</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            </div>
+                            
+                            <div class="instruction-panel">
+                                <h3 data-i18n="basic_controls">Basic Controls</h3>
+                                <div class="controls-table">
+                                    <table>
+                                        <tr>
+                                            <th data-i18n="key">Key</th>
+                                            <th data-i18n="action">Action</th>
+                                        </tr>
+                                        <tr>
+                                            <td><kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd></td>
+                                            <td data-i18n="move_ship">Move your ship in all directions</td>
+                                        </tr>
+                                        <tr>
+                                            <td><kbd>Space</kbd></td>
+                                            <td data-i18n="fire_projectiles">Fire projectiles</td>
+                                        </tr>
+                                        <tr>
+                                            <td><kbd>1</kbd></td>
+                                            <td data-i18n="transform_circle">Transform into Circle shape</td>
+                                        </tr>
+                                        <tr>
+                                            <td><kbd>2</kbd></td>
+                                            <td data-i18n="transform_triangle">Transform into Triangle shape</td>
+                                        </tr>
+                                        <tr>
+                                            <td><kbd>3</kbd></td>
+                                            <td data-i18n="transform_cube">Transform into Cube shape</td>
+                                        </tr>
+                                        <tr>
+                                            <td><kbd>P</kbd></td>
+                                            <td data-i18n="pause_game">Pause/Unpause the game</td>
+                                        </tr>
+                                        <tr>
+                                            <td><kbd>ESC</kbd></td>
+                                            <td data-i18n="return_menu">Return to main menu</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <div class="instruction-panel">
+                                <h3 data-i18n="shape_shifting_strategy">Shape-Shifting Strategy</h3>
+                                <p data-i18n="strategy_desc">The core gameplay mechanic involves matching your shape to enemy types for maximum damage:</p>
+                            
+                                <div class="shape-info">
+                                    <div class="shape-card">
+                                        <div class="shape-icon circle-icon"></div>
+                                        <div class="shape-desc">
+                                            <h4 data-i18n="circle_shape">Circle Shape</h4>
+                                            <p data-i18n="circle_effective">Effective against Circle enemies</p>
+                                            <p data-i18n="circle_attributes">Balanced speed and handling</p>
+                                        </div>
+                                    </div>
+                            
+                                    <div class="shape-card">
+                                        <div class="shape-icon triangle-icon"></div>
+                                        <div class="shape-desc">
+                                            <h4 data-i18n="triangle_shape">Triangle Shape</h4>
+                                            <p data-i18n="triangle_effective">Effective against Triangle enemies</p>
+                                            <p data-i18n="triangle_attributes">Faster movement but less durability</p>
+                                        </div>
+                                    </div>
+                            
+                                    <div class="shape-card">
+                                        <div class="shape-icon cube-icon"></div>
+                                        <div class="shape-desc">
+                                            <h4 data-i18n="cube_shape">Cube Shape</h4>
+                                            <p data-i18n="cube_effective">Effective against Cube enemies</p>
+                                            <p data-i18n="cube_attributes">Slower but more powerful attacks</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                <p class="strategy-tip" data-i18n="strategy_tip">When your shape matches an enemy's shape, you deal critical damage (instant defeat). Watch for the yellow highlight around matching enemies!</p>
+                            </div>
+                            
+                            <div class="instruction-panel">
+                                <h3 data-i18n="powerups">Power-ups</h3>
+                                <div class="powerup-grid">
+                                    <div class="powerup-card">
+                                        <div class="powerup-icon health"></div>
+                                        <div class="powerup-info">
+                                            <h4 data-i18n="health">Health</h4>
+                                            <p data-i18n="health_desc">Restores 25 health points</p>
+                                        </div>
+                                    </div>
+                                    <div class="powerup-card">
+                                        <div class="powerup-icon shield"></div>
+                                        <div class="powerup-info">
+                                            <h4 data-i18n="shield">Shield</h4>
+                                            <p data-i18n="shield_desc">Provides 5 seconds of invulnerability</p>
+                                        </div>
+                                    </div>
+                                    <div class="powerup-card">
+                                        <div class="powerup-icon speed"></div>
+                                        <div class="powerup-info">
+                                            <h4 data-i18n="speed">Speed</h4>
+                                            <p data-i18n="speed_desc">Increases movement speed for 10 seconds</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="play-cta">
+                                <a href="play.html" class="btn btn-primary" data-i18n="play_now">Play Now</a>
+                            </div>
+                            
+            </div>
+        </section>
+    </main>
+
+    <footer style="background-color: black;">
+        <div class="container">
+            <div class="footer-grid" style="display: flex;">
+                <!-- Navigation Links -->
+                <div class="footer-section">
+                    <h4 data-i18n="navigation">Navigation</h4>
+                    <ul>
+                        <li><a href="index.html" data-i18n="home">Home</a></li>
+                        <li><a href="about.html" data-i18n="about">About</a></li>
+                        <li><a href="play.html" data-i18n="play">Play</a></li>
+                        <li><a href="how-to-play.html" data-i18n="how_to_play">How to Play</a></li>
+                        <li><a href="login.html" data-i18n="login_signup">Login/Signup</a></li>
+                        <li><a href="contact.html" data-i18n="contact">Contact</a></li>
+                    </ul>
+                </div>
+    
+                <!-- Social Media & Community -->
+                <!-- You may include that section here as needed -->
+    
+                <!-- Contact Info & Newsletter -->
+                <div class="footer-section">
+                    <h4 data-i18n="stay_updated">Stay Updated</h4>
+                    <p data-i18n="newsletter_desc">Subscribe to our newsletter for updates on new features and tournaments.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email address" data-i18n-placeholder="email_placeholder">
+                        <button type="submit" class="btn btn-accent" data-i18n="subscribe">Subscribe</button>
+                    </div>
+                    <div class="contact-info">
+                        <p data-i18n="contact_text">Contact: <a href="mailto:support@shapeshifterduel.com">support@shapeshifterduel.com</a></p>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Copyright -->
+            <div class="footer-bottom">
+                <div class="language-selector">
+                    <select id="language-selector">
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                        <option value="de">Deutsch</option>
+                        <option value="te">తెలుగు</option>
+                        <option value="ja">日本語</option>
+                    </select>
+                </div>
+                <p class="copyright">&copy; 2025 Shape Shifter Duel.
+                    <span data-i18n="all_rights">All rights reserved.</span>
+                </p>
+            </div>
+        </div>
+    </footer>    
+
+    <script>
+        // Translation data
+        const resources = {
+    en: { translation: {
+        home: "Home",
+        about: "About",
+        play: "Play",
+        how_to_play: "How to Play",
+        contact: "Contact",
+        login: "Login",
+        logout: "Logout",
+        how_to_play_title: "How to Play Shape Shifter Duel",
+        game_modes: "Game Modes",
+        single_player: "Single Player Mode",
+        single_player_desc: "Progress through 5 levels of increasing difficulty with specific objectives.",
+        single_player_point1: "Each level has a point goal to advance",
+        single_player_point2: "Enemy patterns become more complex with each level",
+        single_player_point3: "Weapon upgrades unlock as you progress",
+        to_start: "To Start:",
+        start_single: "at the main menu, then select a level (1-5)",
+        duel_mode: "Duel Mode",
+        duel_mode_desc: "Compete against another player locally on the same computer.",
+        duel_mode_point1: "Two players battle each other in a strategic duel",
+        duel_mode_point2: "Players can pick up power-ups to gain advantages",
+        duel_mode_point3: "The first player to defeat the other wins",
+        start_duel: "at the main menu, then select a level (1-5)",
+        level_differences: "Level Differences",
+        single_player_levels: "Single Player Mode Levels",
+        level: "Level",
+        player_health: "Player Health",
+        enemy_speed: "Enemy Speed",
+        spawn_rate: "Spawn Rate",
+        special_features: "Special Features",
+        level_1: "Level 1",
+        slow: "Slow",
+        low: "Low",
+        basic_weapon: "Basic weapon (single projectile)",
+        level_2: "Level 2",
+        medium: "Medium",
+        triple_projectile: "Triple projectile spread",
+        level_3: "Level 3",
+        fast: "Fast",
+        high: "High",
+        five_projectile: "5-projectile spread pattern",
+        level_4: "Level 4",
+        very_fast: "Very Fast",
+        very_high: "Very High",
+        powerup_frequency: "Increased power-up frequency",
+        level_5: "Level 5",
+        extreme: "Extreme",
+        maximum: "Maximum",
+        advanced_weapon: "Advanced weapon pattern with angled shots",
+        duel_mode_levels: "Duel Mode Levels",
+        arena_size: "Arena Size",
+        powerup_types: "Power-Up Types",
+        full_arena: "Full Arena",
+        health_only: "Health only",
+        basic_gameplay: "Basic gameplay",
+        health_shield: "Health, Shield",
+        faster_projectiles: "Faster projectiles",
+        reduced_size: "Reduced Size",
+        health_shield_speed: "Health, Shield, Speed",
+        environmental_hazards: "Environmental hazards",
+        all_types: "All types, more frequent",
+        moving_obstacles: "Moving obstacles",
+        minimal_size: "Minimal Size",
+        random_powerups: "Random power-ups",
+        instant_death_zones: "Shape-shifting obstacles, instant death zones",
+        basic_controls: "Basic Controls",
+        key: "Key",
+        action: "Action",
+        move_ship: "Move your ship in all directions",
+        fire_projectiles: "Fire projectiles",
+        transform_circle: "Transform into Circle shape",
+        transform_triangle: "Transform into Triangle shape",
+        transform_cube: "Transform into Cube shape",
+        pause_game: "Pause/Unpause the game",
+        return_menu: "Return to main menu",
+        shape_shifting_strategy: "Shape-Shifting Strategy",
+        strategy_desc: "The core gameplay mechanic involves matching your shape to enemy types for maximum damage:",
+        circle_shape: "Circle Shape",
+        circle_effective: "Effective against Circle enemies",
+        circle_attributes: "Balanced speed and handling",
+        triangle_shape: "Triangle Shape",
+        triangle_effective: "Effective against Triangle enemies",
+        triangle_attributes: "Faster movement but less durability",
+        cube_shape: "Cube Shape",
+        cube_effective: "Effective against Cube enemies",
+        cube_attributes: "Slower but more powerful attacks",
+        strategy_tip: "When your shape matches an enemy's shape, you deal critical damage (instant defeat). Watch for the yellow highlight around matching enemies!",
+        powerups: "Power-ups",
+        health: "Health",
+        health_desc: "Restores 25 health points",
+        shield: "Shield",
+        shield_desc: "Provides 5 seconds of invulnerability",
+        speed: "Speed",
+        speed_desc: "Increases movement speed for 10 seconds",
+        play_now: "Play Now",
+        navigation: "Navigation",
+        login_signup: "Login/Signup",
+        connect_with_us: " Connect With Us",
+        stay_updated: "Stay Updated",
+        newsletter_desc: "Subscribe to our newsletter for updates on new features and tournaments.",
+        email_placeholder: "Your email address",
+        subscribe: "Subscribe",
+        contact_text: "Contact:",
+        all_rights: "All rights reserved."
+    }},
+    es: { translation: {
+        home: "Inicio",
+        about: "Acerca de",
+        play: "Jugar",
+        how_to_play: "Cómo jugar",
+        contact: "Contacto",
+        login: "Iniciar sesión",
+        logout: "Cerrar sesión",
+        how_to_play_title: "Cómo jugar Shape Shifter Duel",
+        game_modes: "Modos de juego",
+        single_player: "Modo un jugador",
+        single_player_desc: "Progrese a través de 5 niveles de dificultad creciente con objetivos específicos.",
+        single_player_point1: "Cada nivel tiene un objetivo de puntos para avanzar",
+        single_player_point2: "Los patrones de enemigos se vuelven más complejos con cada nivel",
+        single_player_point3: "Las mejoras de armas se desbloquean a medida que avanzas",
+        to_start: "Para comenzar:",
+        start_single: "en el menú principal, luego seleccione un nivel (1-5)",
+        duel_mode: "Modo duelo",
+        duel_mode_desc: "Compite contra otro jugador localmente en la misma computadora.",
+        duel_mode_point1: "Dos jugadores se enfrentan en un duelo estratégico",
+        duel_mode_point2: "Los jugadores pueden recoger potenciadores para obtener ventajas",
+        duel_mode_point3: "El primer jugador que derrote al otro gana",
+        start_duel: "en el menú principal, luego seleccione un nivel (1-5)",
+        level_differences: "Diferencias de nivel",
+        single_player_levels: "Niveles del modo un jugador",
+        level: "Nivel",
+        player_health: "Salud del jugador",
+        enemy_speed: "Velocidad del enemigo",
+        spawn_rate: "Tasa de aparición",
+        special_features: "Características especiales",
+        level_1: "Nivel 1",
+        slow: "Lento",
+        low: "Bajo",
+        basic_weapon: "Arma básica (proyectil único)",
+        level_2: "Nivel 2",
+        medium: "Medio",
+        triple_projectile: "Dispersión de triple proyectil",
+        level_3: "Nivel 3",
+        fast: "Rápido",
+        high: "Alto",
+        five_projectile: "Patrón de dispersión de 5 proyectiles",
+        level_4: "Nivel 4",
+        very_fast: "Muy rápido",
+        very_high: "Muy alto",
+        powerup_frequency: "Mayor frecuencia de potenciadores",
+        level_5: "Nivel 5",
+        extreme: "Extremo",
+        maximum: "Máximo",
+        advanced_weapon: "Patrón de arma avanzada con disparos en ángulo",
+        duel_mode_levels: "Niveles del modo duelo",
+        arena_size: "Tamaño de la arena",
+        powerup_types: "Tipos de potenciadores",
+        full_arena: "Arena completa",
+        health_only: "Solo salud",
+        basic_gameplay: "Juego básico",
+        health_shield: "Salud, escudo",
+        faster_projectiles: "Proyectiles más rápidos",
+        reduced_size: "Tamaño reducido",
+        health_shield_speed: "Salud, escudo, velocidad",
+        environmental_hazards: "Peligros ambientales",
+        all_types: "Todos los tipos, más frecuentes",
+        moving_obstacles: "Obstáculos móviles",
+        minimal_size: "Tamaño mínimo",
+        random_powerups: "Potenciadores aleatorios",
+        instant_death_zones: "Obstáculos cambiantes, zonas de muerte instantánea",
+        basic_controls: "Controles básicos",
+        key: "Tecla",
+        action: "Acción",
+        move_ship: "Mueve tu nave en todas direcciones",
+        fire_projectiles: "Dispara proyectiles",
+        transform_circle: "Transformarse en forma de círculo",
+        transform_triangle: "Transformarse en forma de triángulo",
+        transform_cube: "Transformarse en forma de cubo",
+        pause_game: "Pausar/Reanudar el juego",
+        return_menu: "Volver al menú principal",
+        shape_shifting_strategy: "Estrategia de cambio de forma",
+        strategy_desc: "La mecánica principal del juego implica emparejar tu forma con los tipos de enemigos para causar el máximo daño:",
+        circle_shape: "Forma de círculo",
+        circle_effective: "Efectivo contra enemigos círculo",
+        circle_attributes: "Velocidad y manejo equilibrados",
+        triangle_shape: "Forma de triángulo",
+        triangle_effective: "Efectivo contra enemigos triángulo",
+        triangle_attributes: "Movimiento más rápido pero menos durabilidad",
+        cube_shape: "Forma de cubo",
+        cube_effective: "Efectivo contra enemigos cubo",
+        cube_attributes: "Más lento pero con ataques más poderosos",
+        strategy_tip: "Cuando tu forma coincide con la de un enemigo, infliges daño crítico (derrota instantánea). ¡Observa el resaltado amarillo alrededor de los enemigos coincidentes!",
+        powerups: "Potenciadores",
+        health: "Salud",
+        health_desc: "Restaura 25 puntos de salud",
+        shield: "Escudo",
+        shield_desc: "Proporciona 5 segundos de invulnerabilidad",
+        speed: "Velocidad",
+        speed_desc: "Aumenta la velocidad de movimiento durante 10 segundos",
+        play_now: "Jugar ahora",
+        navigation: "Navegación",
+        login_signup: "Iniciar sesión/Registrarse",
+        connect_with_us: "Conéctate con nosotros",
+        stay_updated: "Mantente actualizado",
+        newsletter_desc: "Suscríbete a nuestro boletín para recibir actualizaciones sobre nuevas funciones y torneos.",
+        email_placeholder: "Tu dirección de correo",
+        subscribe: "Suscribirse",
+        contact_text: "Contacto:",
+        all_rights: "Todos los derechos reservados."
+    }},
+    fr: { translation: {
+        home: "Accueil",
+        about: "À propos",
+        play: "Jouer",
+        how_to_play: "Comment jouer",
+        contact: "Contact",
+        login: "Se connecter",
+        logout: "Se déconnecter",
+        how_to_play_title: "Comment jouer à Shape Shifter Duel",
+        game_modes: "Modes de jeu",
+        single_player: "Mode solo",
+        single_player_desc: "Progressez à travers 5 niveaux de difficulté croissante avec des objectifs spécifiques.",
+        single_player_point1: "Chaque niveau a un objectif de points pour avancer",
+        single_player_point2: "Les motifs ennemis deviennent plus complexes à chaque niveau",
+        single_player_point3: "Les améliorations d'armement se débloquent au fur et à mesure",
+        to_start: "Pour commencer :",
+        start_single: "au menu principal, puis sélectionnez un niveau (1-5)",
+        duel_mode: "Mode duel",
+        duel_mode_desc: "Affrontez un autre joueur localement sur le même ordinateur.",
+        duel_mode_point1: "Deux joueurs s'affrontent dans un duel stratégique",
+        duel_mode_point2: "Les joueurs peuvent ramasser des power-ups pour obtenir des avantages",
+        duel_mode_point3: "Le premier joueur à vaincre l'autre gagne",
+        start_duel: "au menu principal, puis sélectionnez un niveau (1-5)",
+        level_differences: "Différences de niveau",
+        single_player_levels: "Niveaux du mode solo",
+        level: "Niveau",
+        player_health: "Santé du joueur",
+        enemy_speed: "Vitesse de l'ennemi",
+        spawn_rate: "Taux d'apparition",
+        special_features: "Caractéristiques spéciales",
+        level_1: "Niveau 1",
+        slow: "Lent",
+        low: "Faible",
+        basic_weapon: "Arme de base (projectile unique)",
+        level_2: "Niveau 2",
+        medium: "Moyenne",
+        triple_projectile: "Propagation de triple projectile",
+        level_3: "Niveau 3",
+        fast: "Rapide",
+        high: "Élevé",
+        five_projectile: "Propagation de 5 projectiles",
+        level_4: "Niveau 4",
+        very_fast: "Très rapide",
+        very_high: "Très élevé",
+        powerup_frequency: "Fréquence accrue des power-ups",
+        level_5: "Niveau 5",
+        extreme: "Extrême",
+        maximum: "Maximum",
+        advanced_weapon: "Modèle d'arme avancé avec tirs inclinés",
+        duel_mode_levels: "Niveaux du mode duel",
+        arena_size: "Taille de l'arène",
+        powerup_types: "Types de power-ups",
+        full_arena: "Arène complète",
+        health_only: "Santé uniquement",
+        basic_gameplay: "Gameplay de base",
+        health_shield: "Santé, Bouclier",
+        faster_projectiles: "Projectiles plus rapides",
+        reduced_size: "Taille réduite",
+        health_shield_speed: "Santé, Bouclier, Vitesse",
+        environmental_hazards: "Dangers environnementaux",
+        all_types: "Tous les types, plus fréquents",
+        moving_obstacles: "Obstacles mobiles",
+        minimal_size: "Taille minimale",
+        random_powerups: "Power-ups aléatoires",
+        instant_death_zones: "Obstacles changeants, zones de mort instantanée",
+        basic_controls: "Contrôles de base",
+        key: "Touche",
+        action: "Action",
+        move_ship: "Déplacez votre vaisseau dans toutes les directions",
+        fire_projectiles: "Tirez des projectiles",
+        transform_circle: "Transformez-vous en forme de cercle",
+        transform_triangle: "Transformez-vous en forme de triangle",
+        transform_cube: "Transformez-vous en forme de cube",
+        pause_game: "Pause/Reprendre le jeu",
+        return_menu: "Retour au menu principal",
+        shape_shifting_strategy: "Stratégie de changement de forme",
+        strategy_desc: "La mécanique de jeu principale consiste à assortir votre forme aux types d'ennemis pour un maximum de dégâts :",
+        circle_shape: "Forme de cercle",
+        circle_effective: "Efficace contre les ennemis en forme de cercle",
+        circle_attributes: "Vitesse et maniabilité équilibrées",
+        triangle_shape: "Forme de triangle",
+        triangle_effective: "Efficace contre les ennemis en forme de triangle",
+        triangle_attributes: "Mouvement plus rapide mais moins de durabilité",
+        cube_shape: "Forme de cube",
+        cube_effective: "Efficace contre les ennemis en forme de cube",
+        cube_attributes: "Attaques plus lentes mais plus puissantes",
+        strategy_tip: "Lorsque votre forme correspond à celle d'un ennemi, vous infligez des dégâts critiques (défaite instantanée). Surveillez le surlignage jaune autour des ennemis correspondants !",
+        powerups: "Power-ups",
+        health: "Santé",
+        health_desc: "Restaure 25 points de vie",
+        shield: "Bouclier",
+        shield_desc: "Accorde 5 secondes d'invulnérabilité",
+        speed: "Vitesse",
+        speed_desc: "Augmente la vitesse de déplacement pendant 10 secondes",
+        play_now: "Jouer maintenant",
+        navigation: "Navigation",
+        login_signup: "Connexion/Inscription",
+        connect_with_us: "Connectez-vous avec nous",
+        stay_updated: "Restez informé",
+        newsletter_desc: "Abonnez-vous à notre newsletter pour des mises à jour sur les nouvelles fonctionnalités et les tournois.",
+        email_placeholder: "Votre adresse e-mail",
+        subscribe: "S'abonner",
+        contact_text: "Contact :",
+        all_rights: "Tous droits réservés."
+    }},
+    de: { translation: {
+        home: "Startseite",
+        about: "Über uns",
+        play: "Spielen",
+        how_to_play: "Wie man spielt",
+        contact: "Kontakt",
+        login: "Anmelden",
+        logout: "Abmelden",
+        how_to_play_title: "Wie man Shape Shifter Duel spielt",
+        game_modes: "Spielmodi",
+        single_player: "Einzelspielermodus",
+        single_player_desc: "Durchlaufe 5 Levels mit zunehmendem Schwierigkeitsgrad und spezifischen Zielen.",
+        single_player_point1: "Jedes Level hat ein Punktziel zum Weiterkommen",
+        single_player_point2: "Feindmuster werden mit jedem Level komplexer",
+        single_player_point3: "Waffen-Upgrades werden freigeschaltet, während du fortschreitest",
+        to_start: "Zum Starten:",
+        start_single: "im Hauptmenü, dann wähle ein Level (1-5)",
+        duel_mode: "Duellmodus",
+        duel_mode_desc: "Konkuriere lokal gegen einen anderen Spieler auf demselben Computer.",
+        duel_mode_point1: "Zwei Spieler kämpfen in einem strategischen Duell gegeneinander",
+        duel_mode_point2: "Spieler können Power-Ups aufnehmen, um Vorteile zu erlangen",
+        duel_mode_point3: "Der erste Spieler, der den anderen besiegt, gewinnt",
+        start_duel: "im Hauptmenü, dann wähle ein Level (1-5)",
+        level_differences: "Level-Unterschiede",
+        single_player_levels: "Einzelspielermodus-Level",
+        level: "Level",
+        player_health: "Spieler-Gesundheit",
+        enemy_speed: "Feind-Geschwindigkeit",
+        spawn_rate: "Spawn-Rate",
+        special_features: "Besondere Merkmale",
+        level_1: "Level 1",
+        slow: "Langsam",
+        low: "Niedrig",
+        basic_weapon: "Grundwaffe (einzelnes Projektil)",
+        level_2: "Level 2",
+        medium: "Mittel",
+        triple_projectile: "Dreifach-Projektil-Verbreitung",
+        level_3: "Level 3",
+        fast: "Schnell high",
+        five_projectile: "5-Projektil-Verbreitungsmuster",
+        level_4: "Level 4",
+        very_fast: "Sehr schnell",
+        very_high: "Sehr hoch",
+        powerup_frequency: "Erhöhte Power-Up-Frequenz",
+        level_5: "Level 5",
+        extreme: "Extrem",
+        maximum: "Maximum",
+        advanced_weapon: "Fortgeschrittenes Waffenmuster mit schrägen Schüssen",
+        duel_mode_levels: "Duellmodus-Level",
+        arena_size: "Arena-Größe",
+        powerup_types: "Power-Up-Typen",
+        full_arena: "Vollständige Arena",
+        health_only: "Nur Gesundheit",
+        basic_gameplay: "Grundlegendes Gameplay",
+        health_shield: "Gesundheit, Schild",
+        faster_projectiles: "Schnellere Projektil",
+        reduced_size: "Reduzierte Größe",
+        health_shield_speed: "Gesundheit, Schild, Geschwindigkeit",
+        environmental_hazards: "Umweltgefahren",
+        all_types: "Alle Typen, häufiger",
+        moving_obstacles: "Bewegliche Hindernisse",
+        minimal_size: "Minimale Größe",
+        random_powerups: "Zufällige Power-Ups",
+        instant_death_zones: "Formverändernde Hindernisse, Sofort-Todeszonen",
+        basic_controls: "Grundlegende Steuerung",
+        key: "Taste",
+        action: "Aktion",
+        move_ship: "Bewege dein Schiff in alle Richtungen",
+        fire_projectiles: "Feuere Projektil",
+        transform_circle: "Verwandle dich in Kreisform",
+        transform_triangle: "Verwandle dich in Dreiecksform",
+        transform_cube: "Verwandle dich in Würfelform",
+        pause_game: "Pause/Unpause das Spiel",
+        return_menu: "Zurück zum Hauptmenü",
+        shape_shifting_strategy: "Formveränderungsstrategie",
+        strategy_desc: "Die Hauptspielmechanik besteht darin, deine Form an die Feindtypen anzupassen, um maximalen Schaden zu verursachen:",
+        circle_shape: "Kreisform",
+        circle_effective: "Wirksam gegen Kreisfeinde",
+        circle_attributes: "Ausgewogene Geschwindigkeit und Handhabung",
+        triangle_shape: "Dreiecksform",
+        triangle_effective: "Wirksam gegen Dreiecksfeinde",
+        triangle_attributes: "Schnellerer Bewegung, aber weniger Haltbarkeit",
+        cube_shape: "Würfelform",
+        cube_effective: "Wirksam gegen Würfelfeinde",
+        cube_attributes: "Langsamere, aber stärkere Angriffe",
+        strategy_tip: "Wenn deine Form mit der eines Feindes übereinstimmt, verursachst du kritischen Schaden (sofortige Niederlage). Achte auf den gelben Rand um passende Feinde!",
+        powerups: "Power-Ups",
+        health: "Gesundheit",
+        health_desc: "Stellt 25 Gesundheits-Punkte wieder her",
+        shield: "Schild",
+        shield_desc: "Gewährt 5 Sekunden Unverwundbarkeit",
+        speed: "Geschwindigkeit",
+        speed_desc: "Erhöht die Bewegungsgeschwindigkeit für 10 Sekunden",
+        play_now: "Jetzt spielen",
+        navigation: "Navigation",
+        login_signup: "Anmelden/Registrieren",
+        connect_with_us: "Verbinde dich mit uns",
+        stay_updated: "Bleibe auf dem Laufenden",
+        newsletter_desc: "Abonniere unseren Newsletter für Updates zu neuen Funktionen und Turnieren.",
+        email_placeholder: "Deine E-Mail-Adresse",
+        subscribe: "Abonnieren",
+        contact_text: "Kontakt:",
+        all_rights: "Alle Rechte vorbehalten."
+    }},
+ja:{
+    translation:{
+        home: "ホーム",
+    about: "概要",
+    play: "プレイ",
+    how_to_play: "遊び方",
+    contact: "お問い合わせ",
+    login: "ログイン",
+    logout: "ログアウト",
+    how_to_play_title: "シェイプシフターデュエルの遊び方",
+    game_modes: "ゲームモード",
+    single_player: "シングルプレイヤーモード",
+    single_player_desc: "特定の目標を持つ5つの難易度が上がるレベルを進んでください。",
+    single_player_point1: "各レベルには進むためのポイント目標があります",
+    single_player_point2: "敵のパターンはレベルごとに複雑になります",
+    single_player_point3: "進むにつれて武器のアップグレードが解除されます",
+    to_start: "開始するには:",
+    start_single: "メインメニューで、レベル(1-5)を選択してください",
+    duel_mode: "デュエルモード",
+    duel_mode_desc: "同じコンピュータでローカルに別のプレイヤーと対戦します。",
+    duel_mode_point1: "2人のプレイヤーが戦略的なデュエルで戦います",
+    duel_mode_point2: "プレイヤーはパワーアップを拾って利点を得ることができます",
+    duel_mode_point3: "相手を倒した最初のプレイヤーが勝ちます",
+    start_duel: "メインメニューで、レベル(1-5)を選択してください",
+    level_differences: "レベルの違い",
+    single_player_levels: "シングルプレイヤーモードのレベル",
+    level: "レベル",
+    player_health: "プレイヤーの体力",
+    enemy_speed: "敵の速度",
+    spawn_rate: "出現率",
+    special_features: "特別な機能",
+    level_1: "レベル1",
+    slow: "遅い",
+    low: "低い",
+    basic_weapon: "基本武器(単一発射体)",
+    level_2: "レベル2",
+    medium: "中程度",
+    triple_projectile: "三重発射体スプレッド",
+    level_3: "レベル3",
+    fast: "速い",
+    high: "高い",
+    five_projectile: "5発射体スプレッドパターン",
+    level_4: "レベル4",
+    very_fast: "非常に速い",
+    very_high: "非常に高い",
+    powerup_frequency: "パワーアップの頻度が増加",
+    level_5: "レベル5",
+    extreme: "極端",
+    maximum: "最大",
+    advanced_weapon: "角度付きショットの高度な武器パターン",
+    duel_mode_levels: "デュエルモードのレベル",
+    arena_size: "アリーナサイズ",
+    powerup_types: "パワーアップの種類",
+    full_arena: "フルアリーナ",
+    health_only: "体力のみ",
+    basic_gameplay: "基本的なゲームプレイ",
+    health_shield: "体力、シールド",
+    faster_projectiles: "より速い発射体",
+    reduced_size: "縮小サイズ",
+    health_shield_speed: "体力、シールド、速度",
+    environmental_hazards: "環境ハザード",
+    all_types: "すべての種類、より頻繁",
+    moving_obstacles: "動く障害物",
+    minimal_size: "最小サイズ",
+    random_powerups: "ランダムなパワーアップ",
+    instant_death_zones: "形状変化する障害物、即死ゾーン",
+    basic_controls: "基本コントロール",
+    key: "キー",
+    action: "アクション",
+    move_ship: "船を全方向に移動",
+    fire_projectiles: "発射体を発射",
+    transform_circle: "円形に変形",
+    transform_triangle: "三角形に変形",
+    transform_cube: "立方体に変形",
+    pause_game: "ゲームを一時停止/再開",
+    return_menu: "メインメニューに戻る",
+    shape_shifting_strategy: "形状変化戦略",
+    strategy_desc: "コアゲームプレイメカニックは、最大ダメージを与 えるために敵のタイプに合わせて形を変えることです:",
+    circle_shape: "円形",
+    circle_effective: "円形の敵に対して効果的",
+    circle_attributes: "バランスの取れた速度と操作性",
+    triangle_shape: "三角形",
+    triangle_effective: "三角形の敵に対して効果的",
+    triangle_attributes: "より速い移動だが耐久性が低い",
+    cube_shape: "立方体",
+    cube_effective: "立方体の敵に対して効果的",
+    cube_attributes: "遅いが強力な攻撃",
+    strategy_tip: "敵の形と一致すると、クリティカルダメージを与えます（即死）。一致する敵の周りの黄色い縁に注意してください！",
+    powerups: "パワーアップ",
+    health: "健康",
+    health_desc: "25の健康ポイントを回復",
+    shield: "シールド",
+    shield_desc: "5秒間の無敵を付与",
+    speed: "速度",
+    speed_desc: "10秒間の移動速度を増加",
+    play_now: "今すぐプレイ",
+    navigation: "ナビゲーション",
+    login_signup: "ログイン/サインアップ",
+    connect_with_us: "私たちとつながる",
+    stay_updated: "最新情報を受け取る",
+    newsletter_desc: "新機能やトーナメントの更新のためにニュースレターを購読してください。",
+    email_placeholder: "あなたのメールアドレス",
+    subscribe: "購読する",
+    contact_text: "連絡先:",
+    all_rights: "全著作権所有。"
+
+    }
+},
+te:{
+    translation:{
+    home: "హోమ్",
+    about: "గురించి",
+    play: "ఆడండి",
+    how_to_play: "ఎలా ఆడాలి",
+    contact: "సంప్రదించండి",
+    login: "లాగిన్",
+    logout: "లాగ్అవుట్",
+    how_to_play_title: "షేప్ షిఫ్టర్ డ్యూయల్ ఎలా ఆడాలి",
+    game_modes: "గేమ్ మోడ్లు",
+    single_player: "సింగిల్ ప్లేయర్ మోడ్",
+    single_player_desc: "నిర్దిష్ట లక్ష్యాలతో పెరుగుతున్న కష్టతరమైన 5 స్థాయిల ద్వారా ముందుకు సాగండి.",
+    single_player_point1: "ప్రతి స్థాయికి ముందుకు సాగడానికి పాయింట్ల లక్ష్యం ఉంది",
+    single_player_point2: "ప్రతి స్థాయిలో శత్రువుల నమూనాలు కష్టతరంగా మారుతాయి",
+    single_player_point3: "మీరు ముందుకు సాగుతున్నప్పుడు ఆయుధాల అప్‌గ్రేడ్‌లు అందుబాటులో ఉంటాయి",
+    to_start: "ప్రారంభించడానికి:",
+    start_single: "ప్రధాన మెనులో, తరువాత స్థాయిని (1-5) ఎంచుకోండి",
+    duel_mode: "డ్యూయల్ మోడ్",
+    duel_mode_desc: "అదే కంప్యూటర్‌లో స్థానికంగా మరొక ఆటగాడితో పోటీపడండి.",
+    duel_mode_point1: "రెండు ఆటగాళ్లు వ్యూహాత్మక డ్యూయల్‌లో పోటీ పడతారు",
+    duel_mode_point2: "ఆటగాళ్లు లాభాలను పొందడానికి పవర్-అప్‌లను ఎత్తుకోవచ్చు",
+    duel_mode_point3: "మరొకరిని ఓడించిన మొదటి ఆటగాడు గెలుస్తాడు",
+    start_duel: "ప్రధాన మెనులో, తరువాత స్థాయిని (1-5) ఎంచుకోండి",
+    level_differences: "స్థాయి వ్యత్యాసాలు",
+    single_player_levels: "సింగిల్ ప్లేయర్ మోడ్ స్థాయులు",
+    level: "స్థాయి",
+    player_health: "ఆటగాడు ఆరోగ్యం",
+    enemy_speed: "శత్రువు వేగం",
+    spawn_rate: "స్పాన్ రేటు",
+    special_features: "ప్రత్యేక లక్షణాలు",
+    level_1: "స్థాయి 1",
+    slow: "మందగాడు",
+    low: "తక్కువ",
+    basic_weapon: "ప్రాథమిక ఆయుధం (ఒకే ప్రక్షేపణం)",
+    level_2: "స్థాయి 2",
+    medium: "మధ్యస్థ",
+    triple_projectile: "మూడింతల ప్రక్షేపణం",
+    level_3: "స్థాయి 3",
+    fast: "వేగంగా",
+    high: "అ ధికారం",
+    five_projectile: "5 ప్రక్షేపణం నమూనా",
+    level_4: "స్థాయి 4",
+    very_fast: "చాలా వేగంగా",
+    very_high: "చాలా అధిక",
+    powerup_frequency: "పవర్-అప్ ఫ్రీక్వెన్సీ పెరిగింది",
+    level_5: "స్థాయి 5",
+    extreme: "అత్యంత",
+    maximum: "గరిష్టం",
+    advanced_weapon: "కోణాల ప్రక్షేపణం ఉన్న ఆధునిక ఆయుధం",
+    duel_mode_levels: "డ్యూయల్ మోడ్ స్థాయులు",
+    arena_size: "అరేనా పరిమాణం",
+    powerup_types: "పవర్-అప్ రకాలు",
+    full_arena: "పూర్తి అరేనా",
+    health_only: "కేవలం ఆరోగ్యం",
+    basic_gameplay: "ప్రాథమిక ఆట",
+    health_shield: "ఆరోగ్యం, కవచం",
+    faster_projectiles: "వేగంగా ప్రక్షేపణాలు",
+    reduced_size: "తక్కువ పరిమాణం",
+    health_shield_speed: "ఆరోగ్యం, కవచం, వేగం",
+    environmental_hazards: "పర్యావరణ ప్రమాదాలు",
+    all_types: "అన్ని రకాలు, ఎక్కువగా",
+    moving_obstacles: "చలనం చేసే అడ్డంకులు",
+    minimal_size: "కనిష్ట పరిమాణం",
+    random_powerups: "యాదృచ్ఛిక పవర్-అప్‌లు",
+    instant_death_zones: "ఆకార మార్పు చేసే అడ్డంకులు, తక్షణ మరణ జోన్‌లు",
+    basic_controls: "ప్రాథమిక నియంత్రణలు",
+    key: "కీ",
+    action: "చర్య",
+    move_ship: "మీ నావను అన్ని దిశలలో కదిలించండి",
+    fire_projectiles: "ప్రక్షేపణాలను కాల్చండి",
+    transform_circle: "గోళాకారంలోకి మారండి",
+    transform_triangle: "త్రికోణంలోకి మారండి",
+    transform_cube: "ఘనంలోకి మారండి",
+    pause_game: "ఆటను నిలిపి/మళ్లీ ప్రారంభించండి",
+    return_menu: "ప్రధాన మెనుకు తిరిగి రా",
+    shape_shifting_strategy: "ఆకార మార్పు వ్యూహం",
+    strategy_desc: "ప్రధాన ఆట మెకానిక్ మీ ఆకారాన్ని శత్రువుల రకాలకు అనుగుణంగా మార్చడం, గరిష్ట నష్టం కలిగించడానికి:",
+    circle_shape: "గోళాకార ఆకారం",
+    circle_effective: "గోళాకార శత్రువులకు ప్రభావవంతం",
+    circle_attributes: "సమతుల్య వేగం మరియు నిర్వహణ",
+    triangle_shape: "త్రికోణ ఆకారం",
+    triangle_effective: "త్రికోణ శత్రువులకు ప్రభావవంతం",
+    triangle_attributes: "వేగంగా కదలడం, కానీ తక్కువ స్థిరత్వం",
+    cube_shape: "ఘన ఆకారం",
+    cube_effective: "ఘన శత్రువులకు ప్రభావవంతం",
+    cube_attributes: "మందగాడు కానీ శక్తివంతమైన దాడులు",
+    strategy_tip: "మీ ఆకారం శత్రువుల ఆకారంతో సరిపోతే, మీరు క్రిటికల్ డామేజ్ (తక్షణ పరాజయం) కలిగిస్తారు. సరిపోతున్న శత్రువుల చుట్టూ పసుపు అంచు ఉన్నది గమనించండి!",
+    powerups: "పవర్-అప్‌లు",
+    health: "ఆరోగ్యం",
+    health_desc: "25 ఆరోగ్య పాయింట్లను పునరుద్ధరించండి",
+    shield: "కవచం",
+    shield_desc: "5 సెకన్ల పాటు అప్రతిహతను అందిస్తుంది",
+    speed: "వేగం",
+    speed_desc: "10 సెకన్ల పాటు కదలిక వేగాన్ని పెంచుతుంది",
+    play_now: "ఇప్పుడు ఆడండి",
+    navigation: "నావిగేషన్",
+    login_signup: "లాగిన్/సైన్ అప్",
+    connect_with_us: "మాతో కనెక్ట్ అవ్వండి",
+    stay_updated: "నవీకరణలపై ఉండండి",
+    newsletter_desc: "కొత్త ఫీచర్లు మరియు టోర్నీలకు నవీకరణల కోసం మా న్యూస్‌లెటర్‌ను సబ్‌స్క్రైబ్ చేయండి.",
+    email_placeholder: "మీ ఇమెయిల్ చిర",
+    email_placeholder: "మీ ఇమెయిల్ చిరునామా",
+    subscribe: "సబ్‌స్క్రైబ్ చేయండి",
+    contact_text: "సంప్రదించండి:",
+    all_rights: "అన్ని హక్కులు రిజర్వ్ చేయబడ్డాయి."
+}
+}
+}
+i18next.init({
+    lng: 'en',
+    debug: true,
+    resources
+}, function(err, t) {
+    // Initialize jQuery-i18next
+    jqueryI18next.init(i18next, $);
+    
+    // Localize the page
+    $('body').localize();
+});
+
+// Language selector change handler
+document.querySelector('.language-selector select').addEventListener('change', function() {
+    i18next.changeLanguage(this.value, function() {
+        $('body').localize();
+    });
+});
+        // Adjusted to use age instead of birth year
+        function getGeneration(age) {
+          const currentYear = new Date().getFullYear();
+          const birthYear = currentYear - age; // Calculate birth year from age
+          
+          if (birthYear >= 1901 && birthYear <= 1927) return "The Greatest Generation";
+          if (birthYear >= 1928 && birthYear <= 1945) return "The Silent Generation";
+          if (birthYear >= 1946 && birthYear <= 1964) return "Baby Boomers";
+          if (birthYear >= 1965 && birthYear <= 1980) return "Gen X";
+          if (birthYear >= 1981 && birthYear <= 1996) return "Millennials";
+          if (birthYear >= 1997 && birthYear <= 2012) return "Gen Z";
+          if (birthYear >= 2013 && birthYear <= 2025) return "Gen Alpha";
+          if (birthYear >= 2025 && birthYear <= 2039) return "Gen Beta";
+          return "Unknown Generation";
+        }
+      
+        // Function to update user display
+        function updateUserDisplay() {
+          const currentUser = localStorage.getItem('currentUser');
+          const guestInfo = document.getElementById('guest-info');
+          const userProfile = document.getElementById('user-profile');
+          const profileUsername = document.getElementById('profile-username');
+          const profileGeneration = document.getElementById('profile-generation');
+          const profileGenerationDropdown = document.getElementById('profile-generation-dropdown');
+          const profileDropdown = document.getElementById('profile-dropdown');
+          const profileDropdownBtn = document.querySelector('.profile-dropdown-btn');
+
+          if (currentUser) {
+            guestInfo.style.display = 'none';
+            userProfile.style.display = 'flex';
+            const user = JSON.parse(currentUser);
+            
+            // Set profile image if available, otherwise use default
+            profileUsername.textContent = user.username;
+            
+            // Use age instead of birth year
+            const age = user.age || 25; // Default age if not provided
+            const generation = getGeneration(age);
+            profileGeneration.textContent = generation;
+            profileGenerationDropdown.textContent = generation;
+          } else {
+            profileDropdown.classList.remove('show');
+            profileDropdownBtn.classList.remove('open');
+            guestInfo.style.display = 'block';
+            userProfile.style.display = 'none';
+          }
+        }
+      
+        // Logout function
+        function logout() {
+          localStorage.removeItem('currentUser');
+          updateUserDisplay();
+          // Optional: Redirect to home page after logout
+          window.location.href = 'index.html';
+        }
+      
+        // Handle dropdown click event
+        document.addEventListener('click', function (event) {
+          const profileDropdown = document.getElementById('profile-dropdown');
+          const profileDropdownBtn = document.querySelector('.profile-dropdown-btn');
+          const userProfile = document.getElementById('user-profile');
+        
+          if (userProfile.contains(event.target)) {
+            if (event.target.classList.contains('profile-dropdown-btn')) {
+              profileDropdown.classList.toggle('show');
+              profileDropdownBtn.classList.toggle('open');
+            }
+          } else {
+            profileDropdown.classList.remove('show');
+            profileDropdownBtn.classList.remove('open');
+          }
+        }); 
+        // On page load, update the user display
+        window.onload = updateUserDisplay;
+    </script>
+</body>
+</html>

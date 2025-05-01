@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shape Shifter Duel - Play</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto&family=Dancing+Script&family=Pacifico&family=Great+Vibes&family=Satisfy&family=Allura&family=Brush+Script+MT&family=Lobster&family=Zapfino&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Russo+One&family=Orbitron&family=Bangers&family=VT323&family=Audiowide&family=Major+Mono+Display&family=Anton&display=swap" rel="stylesheet"/>
+   <style>
+        .user-info {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+        }
+
+        .user-profile {
+          display: none; /* Hidden by default */
+          align-items: center;
+          gap: 10px;
+          position: relative;
+        }
+
+        .profile-img {
+          width: 70px;
+          height: 70px;
+          right: 30px;
+          border-radius: 50%;
+          border: 3px solid #00ffae;
+        }
+
+        #profile-username {
+          color: rgb(255, 255, 255);
+          font-family:Georgia, 'Times New Roman', Times, serif;
+          font-size: 1rem;
+        }
+
+        .dropdown {
+          position: absolute;
+          top: 100%;
+          right: 0;
+          background-color: #800080;
+          color: #f9f9f9;
+          border-radius: 6px;
+          padding: 10px;
+          display: none;
+          flex-direction: column;
+          gap: 20px;
+          min-width: 160px;
+          z-index: 1000;
+          box-shadow: 0 4px 8px rgba(255, 255, 255);
+        }
+
+        .dropdown button,
+        .dropdown span {
+          color: white;
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-family: 'Roboto', sans-serif;
+        }
+
+        .dropdown button:hover {
+          color: #ffffff;
+        }
+
+        .dropdown .logout-btn {
+          padding: 0.5rem 1rem;
+          background-color: #ffffff;
+          border: none;
+          cursor: pointer;
+          border-radius: 4px;
+          color: black;
+        }
+
+        .dropdown .logout-btn:hover {
+          background-color: #980000;
+        }
+
+        .profile-dropdown-btn.open {
+          transform: rotate(180deg);
+          transition: transform 0.3s ease;
+        }
+
+        header {
+          background-color: rgba(0, 0, 0, 0.5);
+          justify-content: center;
+          padding: 10px;
+        }
+
+        .nav-links {
+          list-style-type: none;
+        }
+
+        .nav-links li {
+          display: inline;
+          margin-right: 20px;
+        }
+
+        .nav-links a {
+          color: white;
+          text-decoration: none;
+        }
+
+        .login-link {
+          color: white;
+        }
+
+        .dropdown.show {
+          display: flex;
+        }
+        /* Updated Profile Username and Generation Styling */
+        #profile-username {
+          color: #ffffff;
+            --primary-color: none;
+          font-family: 'Audiowide', cursive;
+          font-size: 1.2rem;
+          text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.4);
+          padding-right: 10px;
+          transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        #profile-username:hover {
+          color: #51b004;
+          transform: scale(1.1);
+        }
+
+        #profile-generation {
+            font-family: 'Orbitron', sans-serif;
+          font-size: 1rem;
+          color: #f9f9f9;
+          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+          font-weight: 400;
+          letter-spacing: 0.5px;
+          transition: color 0.3s ease;
+        }
+
+        #profile-generation:hover {
+          color: #ffcc00;
+        }
+    </style>
+</head>
+<body>
+    <header style="height: 90px;">
+        <div class="logo-container">
+            <h1 class="site-title">Shape Shifter Duel</h1>
+        </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="play.html" class="active">Play</a></li>
+                    <li><a href="how-to-play.html">How to Play</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="user-dashboard" id="user-dashboard">
+                <div class="user-info" id="user-info">
+                    <div class="user-profile" id="user-profile">
+                        <img id="profile-image" src="homepage11.jpg" alt="Profile Image" class="profile-img">
+                        <div class="username-generation">
+                            <span id="profile-username"></span>
+                            <span id="profile-generation"></span>
+                        </div>
+                        <button class="profile-dropdown-btn">▼</button>
+                        <div class="dropdown" id="profile-dropdown">
+                            <span id="profile-generation-dropdown"></span>
+                            <button class="logout-btn" onclick="logout()">Logout</button>
+                        </div>
+                    </div>
+                    <div id="guest-info" style="display: block;">
+                        <a href="login.html" class="login-link">Login</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+    
+
+    <main class="fullscreen-game" style="margin-top:0px;margin-bottom:0px;margin-left: 0px;margin-right: 80px;padding-left: 0%;">
+        <div class="game-mode-selector">
+            <h2>Select Game Mode</h2>
+            <div class="mode-buttons">
+                <button id="single-player-btn" class="game-mode-btn active">Single Player</button>
+                <button id="duel-player-btn" class="game-mode-btn">
+                  <a href="duel_game.html" class="duel-link">Duel Mode</a></button>
+                <!-- Link to redirect to Duel Game page -->
+            </div>
+            
+            <div class="level-selector" id="level-selector">
+                <h3>Select Level</h3>
+                <div class="level-buttons">
+                    <button class="level-btn" data-level="1">Level 1</button>
+                    <button class="level-btn" data-level="2">Level 2</button>
+                    <button class="level-btn" data-level="3">Level 3</button>
+                    <button class="level-btn" data-level="4">Level 4</button>
+                    <button class="level-btn" data-level="5">Level 5</button>
+                </div>
+            </div>
+                
+                <button id="start-game-btn" class="btn btn-primary">Start Game</button>
+                <p class="game-status" id="game-status"></p>
+            </div>
+        </div>
+        
+        <div class="game-view">
+            <canvas id="gameCanvas"></canvas>
+            <div class="game-overlay" id="game-overlay">
+                <div id="welcome-message"></div>
+                <div id="game-message"></div>
+                <button id="back-btn" class="btn btn-secondary">Back to Menu</button>
+            </div>
+        </div>
+    </main>
+    <!-- Game Scripts -->
+    <script src="gameColors.js"></script>
+    <script src="level.js"></script>
+    <script src="gameUI.js"></script>
+    <script src="levelTransition.js"></script>
+    <script src="combatMode.js"></script>
+    <script src="duelMode.js"></script>
+    <script src="game.js"></script>
+    
+    <script>
+        // Game interface handling
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get elements
+            const singlePlayerBtn = document.getElementById('single-player-btn');
+            const duelPlayerBtn = document.getElementById('duel-player-btn');
+            const startGameBtn = document.getElementById('start-game-btn');
+            const backBtn = document.getElementById('back-btn');
+            const levelButtons = document.querySelectorAll('.level-btn');
+            const playerTwo = document.querySelector('.player-two');
+            const gameCanvas = document.getElementById('gameCanvas');
+            const gameOverlay = document.getElementById('game-overlay');
+            const gameStatus = document.getElementById('game-status');
+            const welcomeMessage = document.getElementById('welcome-message');
+            
+            // Set initial game mode and level
+            let gameMode = 'single';
+            let selectedLevel = 1;
+            
+            // Check if user is logged in (from localStorage)
+            const user = localStorage.getItem('currentUser');
+            if (user) {
+                try {
+                    const userData = JSON.parse(user);
+                    welcomeMessage.textContent = `Welcome, ${userData.username}!`;
+                } catch (e) {
+                    welcomeMessage.textContent = '';
+                }
+            }
+            
+            // Set canvas to full size
+            function resizeCanvas() {
+                const gameView = document.querySelector('.game-view');
+                gameCanvas.width = gameView.offsetWidth;
+                gameCanvas.height = gameView.offsetHeight;
+            }
+            
+            // Initial resize and on window resize
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            // Mode selection
+            singlePlayerBtn.addEventListener('click', function() {
+                gameMode = 'single';
+                singlePlayerBtn.classList.add('active');
+                duelPlayerBtn.classList.remove('active');
+                playerTwo.style.display = 'none';
+                document.getElementById('level-selector').style.display = 'block';
+            });
+            
+            duelPlayerBtn.addEventListener('click', function() {
+                gameMode = 'duel';
+                duelPlayerBtn.classList.add('active');
+                singlePlayerBtn.classList.remove('active');
+                playerTwo.style.display = 'block';
+                document.getElementById('level-selector').style.display = 'block';
+            });
+            
+            // Level selection
+            levelButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    selectedLevel = parseInt(this.getAttribute('data-level'));
+                    levelButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Activate first level button by default
+            levelButtons[0].classList.add('active');
+            
+            // Start game
+            startGameBtn.addEventListener('click', function() {
+                const gameModeSelector = document.querySelector('.game-mode-selector');
+                gameModeSelector.style.display = 'none';
+                gameOverlay.style.display = 'none';
+                
+                // Initialize game with selected mode and level
+                if (gameMode === 'single') {
+                    // Initialize single player game at specific level
+                    window.game.startSinglePlayerGame(selectedLevel);
+                } else {
+                    // Initialize duel mode
+                    window.game.startSinglePlayerGame(selectedLevel);
+                }
+                
+                // Add game-active class to hide footer during gameplay
+                document.body.classList.add('game-active');
+                
+                // Focus on canvas for keyboard input
+                gameCanvas.focus();
+            });
+            
+            // Back button
+            backBtn.addEventListener('click', function() {
+                const gameModeSelector = document.querySelector('.game-mode-selector');
+                gameModeSelector.style.display = 'block';
+                gameOverlay.style.display = 'none';
+                
+                // Stop the current game
+                if (window.game) {
+                    window.game.stopGame();
+                }
+                
+                // Remove game-active class to show footer again
+                document.body.classList.remove('game-active');
+            });
+            
+            // Hide overlay initially
+            gameOverlay.style.display = 'none';
+            
+            // Global event to show game over
+            window.addEventListener('game-over', function(e) {
+                gameOverlay.style.display = 'flex';
+                document.getElementById('game-message').textContent = e.detail.message;
+            });
+        });
+    </script> <script>
+        function updateUserDisplay() {
+            const currentUser = localStorage.getItem('currentUser');
+            const guestInfo = document.getElementById('guest-info');
+            const userProfile = document.getElementById('user-profile');
+            const profileImage = document.getElementById('profile-image');
+            const profileUsername = document.getElementById('profile-username');
+            const profileAge = document.getElementById('profile-age');
+            const profileGender = document.getElementById('profile-gender');
+            const profileDropdown = document.getElementById('profile-dropdown');
+            const profileDropdownBtn = document.querySelector('.profile-dropdown-btn');
+
+            if (currentUser) {
+                guestInfo.style.display = 'none';
+                userProfile.style.display = 'flex';
+                const user = JSON.parse(currentUser);
+                profileImage.src = user.profileImage;
+                profileUsername.textContent = user.username;
+                profileAge.textContent = `Age: ${user.age}`;
+                profileGender.textContent = `Gender: ${user.gender}`;
+
+                // Open dropdown when button is clicked
+                profileDropdownBtn.addEventListener('click', function () {
+                    profileDropdown.classList.toggle('show');
+                    profileDropdownBtn.classList.toggle('open');
+                });
+            } else {
+                // Hide dropdown and reset button state when logged out
+                profileDropdown.classList.remove('show');
+                profileDropdownBtn.classList.remove('open');
+                guestInfo.style.display = 'block';
+                userProfile.style.display = 'none';
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            updateUserDisplay();
+        }
+
+        window.onload = updateUserDisplay;
+    </script> <script>
+        function updateUserDisplay() {
+            const currentUser = localStorage.getItem('currentUser');
+            const guestInfo = document.getElementById('guest-info');
+            const userProfile = document.getElementById('user-profile');
+            const profileImage = document.getElementById('profile-image');
+            const profileUsername = document.getElementById('profile-username');
+            const profileAge = document.getElementById('profile-age');
+            const profileGender = document.getElementById('profile-gender');
+            const profileDropdown = document.getElementById('profile-dropdown');
+            const profileDropdownBtn = document.querySelector('.profile-dropdown-btn');
+
+            if (currentUser) {
+                guestInfo.style.display = 'none';
+                userProfile.style.display = 'flex';
+                const user = JSON.parse(currentUser);
+                profileImage.src = user.profileImage;
+                profileUsername.textContent = user.username;
+                profileAge.textContent = `Age: ${user.age}`;
+                profileGender.textContent = `Gender: ${user.gender}`;
+
+                // Open dropdown when button is clicked
+                profileDropdownBtn.addEventListener('click', function () {
+                    profileDropdown.classList.toggle('show');
+                    profileDropdownBtn.classList.toggle('open');
+                });
+            } else {
+                // Hide dropdown and reset button state when logged out
+                profileDropdown.classList.remove('show');
+                profileDropdownBtn.classList.remove('open');
+                guestInfo.style.display = 'block';
+                userProfile.style.display = 'none';
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            updateUserDisplay();
+        }
+
+        window.onload = updateUserDisplay;
+    </script>
+    <script>
+        // Adjusted to use age instead of birth year
+        function getGeneration(age) {
+          const currentYear = new Date().getFullYear();
+          const birthYear = currentYear - age; // Calculate birth year from age
+          
+          if (birthYear >= 1901 && birthYear <= 1927) return "The Greatest Generation";
+          if (birthYear >= 1928 && birthYear <= 1945) return "The Silent Generation";
+          if (birthYear >= 1946 && birthYear <= 1964) return "Baby Boomers";
+          if (birthYear >= 1965 && birthYear <= 1980) return "Gen X";
+          if (birthYear >= 1981 && birthYear <= 1996) return "Millennials";
+          if (birthYear >= 1997 && birthYear <= 2012) return "Gen Z";
+          if (birthYear >= 2013 && birthYear <= 2025) return "Gen Alpha";
+          if (birthYear >= 2025 && birthYear <= 2039) return "Gen Beta";
+          return "Unknown Generation";
+        }
+      
+        // Function to update user display
+        function updateUserDisplay() {
+          const currentUser = localStorage.getItem('currentUser');
+          const guestInfo = document.getElementById('guest-info');
+          const userProfile = document.getElementById('user-profile');
+          const profileUsername = document.getElementById('profile-username');
+          const profileGeneration = document.getElementById('profile-generation');
+          const profileGenerationDropdown = document.getElementById('profile-generation-dropdown');
+          const profileDropdown = document.getElementById('profile-dropdown');
+          const profileDropdownBtn = document.querySelector('.profile-dropdown-btn');
+
+          if (currentUser) {
+            guestInfo.style.display = 'none';
+            userProfile.style.display = 'flex';
+            const user = JSON.parse(currentUser);
+            
+            // Set profile image if available, otherwise use default
+            profileUsername.textContent = user.username;
+            
+            // Use age instead of birth year
+            const age = user.age || 25; // Default age if not provided
+            const generation = getGeneration(age);
+            profileGeneration.textContent = generation;
+            profileGenerationDropdown.textContent = generation;
+          } else {
+            profileDropdown.classList.remove('show');
+            profileDropdownBtn.classList.remove('open');
+            guestInfo.style.display = 'block';
+            userProfile.style.display = 'none';
+          }
+        }
+      
+        // Logout function
+        function logout() {
+          localStorage.removeItem('currentUser');
+          updateUserDisplay();
+          // Optional: Redirect to home page after logout
+          window.location.href = 'index.html';
+        }
+      
+        // Handle dropdown click event
+        document.addEventListener('click', function (event) {
+          const profileDropdown = document.getElementById('profile-dropdown');
+          const profileDropdownBtn = document.querySelector('.profile-dropdown-btn');
+          const userProfile = document.getElementById('user-profile');
+        
+          if (userProfile.contains(event.target)) {
+            if (event.target.classList.contains('profile-dropdown-btn')) {
+              profileDropdown.classList.toggle('show');
+              profileDropdownBtn.classList.toggle('open');
+            }
+          } else {
+            profileDropdown.classList.remove('show');
+            profileDropdownBtn.classList.remove('open');
+          }
+        });
+      
+        // On page load, update the user display
+        window.onload = updateUserDisplay;
+    </script>
+</body>
+</html>

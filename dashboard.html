@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shape Shifter Duel - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <h1 class="site-title">Shape Shifter Duel</h1>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="play.html">Play</a></li>
+                <li><a href="how-to-play.html">How to Play</a></li>
+                <li><a href="login.html">Login/Signup</a></li>
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="dashboard-container">
+        <section class="player-info">
+            <div class="player-header">
+                <img src="avatar-placeholder.png" alt="Player Avatar" class="avatar">
+                <div class="player-details">
+                    <h2 id="username">Username123</h2>
+                    <p id="rank">Rank: Master Shifter</p>
+                    <p id="level">Level: 42</p>
+                    <p id="total-stars">Total Stars: <span>1,234</span></p>
+                    <p id="bonus-stars">Bonus Stars: <span>+50</span></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="shape-selection">
+            <h3>Shape Selection</h3>
+            <div class="shape-buttons">
+                <button class="shape-btn" data-shape="circle">
+                    <span class="shape-icon">🔵</span>
+                    Circle
+                    <div class="tooltip">
+                        <p>Speed: Fast</p>
+                        <p>Star Drain: High</p>
+                        <p>Durability: Low</p>
+                    </div>
+                </button>
+                <button class="shape-btn" data-shape="square">
+                    <span class="shape-icon">🟦</span>
+                    Square
+                    <div class="tooltip">
+                        <p>Speed: Slow</p>
+                        <p>Star Drain: Low</p>
+                        <p>Durability: High</p>
+                    </div>
+                </button>
+                <button class="shape-btn" data-shape="triangle">
+                    <span class="shape-icon">🔺</span>
+                    Triangle
+                    <div class="tooltip">
+                        <p>Speed: Balanced</p>
+                        <p>Star Drain: Medium</p>
+                        <p>Durability: Medium</p>
+                    </div>
+                </button>
+            </div>
+        </section>
+
+        <section class="live-status">
+            <h3>Live Status</h3>
+            <div class="status-grid">
+                <div class="status-item">
+                    <h4>Current Shape</h4>
+                    <p id="current-shape">🔵 Circle</p>
+                </div>
+                <div class="status-item">
+                    <h4>Stars/Second</h4>
+                    <p id="star-drain">-2.5 ⭐/s</p>
+                </div>
+                <div class="status-item">
+                    <h4>Obstacle Ahead</h4>
+                    <div id="radar-preview" class="radar"></div>
+                </div>
+            </div>
+
+            <div class="meters">
+                <div class="durability-meter">
+                    <h4>Durability</h4>
+                    <div class="meter">
+                        <div class="meter-fill" style="width: 75%"></div>
+                    </div>
+                </div>
+
+                <div class="progress-section">
+                    <h4>Race Progress</h4>
+                    <div class="progress-bar">
+                        <div class="player-marker"></div>
+                        <div class="opponent-marker"></div>
+                        <div class="obstacle-markers"></div>
+                    </div>
+                </div>
+
+                <div class="star-meter">
+                    <h4>Star Power</h4>
+                    <div class="meter pulsing">
+                        <div class="meter-fill" style="width: 70%"></div>
+                    </div>
+                    <p class="warning" id="star-warning">Low Stars Warning!</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="race-info">
+            <div class="time-display">
+                <h4>Race Time</h4>
+                <p id="time-elapsed">02:34</p>
+                <p id="checkpoint-time">Next Checkpoint: 00:45</p>
+            </div>
+
+            <div class="scoreboard">
+                <h4>Current Race</h4>
+                <p>Position: <span id="position">1st</span></p>
+                <p>Stars Left: <span id="stars-left">875</span></p>
+                <p>Bonus Points: <span id="bonus-points">+150</span></p>
+                <p>Total Score: <span id="total-score">1,025</span></p>
+            </div>
+
+            <div class="transformation-cooldown">
+                <h4>Shape Shift Cooldown</h4>
+                <div class="cooldown-ring"></div>
+            </div>
+        </section>
+
+        <section class="controls-guide">
+            <h4>Controls</h4>
+            <div class="key-guide">
+                <p><span class="key">1</span> Circle</p>
+                <p><span class="key">2</span> Square</p>
+                <p><span class="key">3</span> Triangle</p>
+                <p><span class="key">Space</span> Boost</p>
+                <p><span class="key">E</span> Emote</p>
+            </div>
+        </section>
+
+        <section class="chat-emotes">
+            <h4>Quick Chat</h4>
+            <div class="emote-grid">
+                <button class="emote-btn">👋</button>
+                <button class="emote-btn">👍</button>
+                <button class="emote-btn">🎮</button>
+                <button class="emote-btn">⭐</button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Dynamic updates will be handled here
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update stats periodically
+            setInterval(updateStats, 1000);
+            
+            // Shape selection handling
+            document.querySelectorAll('.shape-btn').forEach(btn => {
+                btn.addEventListener('click', () => selectShape(btn.dataset.shape));
+            });
+        });
+
+        function updateStats() {
+            // Simulate dynamic updates
+            document.getElementById('star-drain').textContent = 
+                `-${(Math.random() * 3 + 1).toFixed(1)} ⭐/s`;
+            
+            // Update meters
+            updateMeters();
+        }
+
+        function selectShape(shape) {
+            document.querySelectorAll('.shape-btn').forEach(btn => 
+                btn.classList.remove('active'));
+            document.querySelector(`[data-shape="${shape}"]`).classList.add('active');
+            document.getElementById('current-shape').textContent = 
+                `${shape === 'circle' ? '🔵' : shape === 'square' ? '🟦' : '🔺'} ${shape}`;
+        }
+
+        function updateMeters() {
+            // Add real-time meter updates here
+        }
+    </script>
+</body>
+</html>

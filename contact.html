@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shape Shifter Duel - Contact</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto&family=Dancing+Script&family=Pacifico&family=Great+Vibes&family=Satisfy&family=Allura&family=Brush+Script+MT&family=Lobster&family=Zapfino&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Russo+One&family=Orbitron&family=Bangers&family=VT323&family=Audiowide&family=Major+Mono+Display&family=Anton&display=swap" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/21.6.3/i18next.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-i18next/1.0.0/jquery-i18next.min.js"></script><style>
+        .user-info {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+        }
+
+        .user-profile {
+          display: none; /* Hidden by default */
+          align-items: center;
+          gap: 10px;
+          position: relative;
+        }
+
+        .profile-img {
+          width: 80px;
+          height: 80px;
+          right: 30px;
+          border-radius: 50%;
+          border: 3px solid #00ffae;
+        }
+
+        #profile-username {
+          color: rgb(255, 255, 255);
+          font-family:Georgia, 'Times New Roman', Times, serif;
+          font-size: 1rem;
+        }
+
+        .dropdown {
+          position: absolute;
+          top: 100%;
+          right: 0;
+          background-color: #800080;
+          color: #f9f9f9;
+          border-radius: 6px;
+          padding: 10px;
+          display: none;
+          flex-direction: column;
+          gap: 20px;
+          min-width: 160px;
+          z-index: 1000;
+          box-shadow: 0 4px 8px rgba(255, 255, 255);
+        }
+
+        .dropdown button,
+        .dropdown span {
+          color: white;
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-family: 'Roboto', sans-serif;
+        }
+
+        .dropdown button:hover {
+          color: #ffffff;
+        }
+
+        .dropdown .logout-btn {
+          padding: 0.5rem 1rem;
+          background-color: #ffffff;
+          border: none;
+          cursor: pointer;
+          border-radius: 4px;
+          color: black;
+        }
+
+        .dropdown .logout-btn:hover {
+          background-color: #980000;
+        }
+
+        .profile-dropdown-btn.open {
+          transform: rotate(180deg);
+          transition: transform 0.3s ease;
+        }
+
+        header {
+          background-color: rgba(0, 0, 0, 0.5);
+          justify-content: center;
+          padding: 10px;
+        }
+
+        .nav-links {
+          list-style-type: none;
+        }
+
+        .nav-links li {
+          display: inline;
+          margin-right: 20px;
+        }
+
+        .nav-links a {
+          color: white;
+          text-decoration: none;
+        }
+
+        .login-link {
+          color: white;
+        }
+
+        .dropdown.show {
+          display: flex;
+        }
+        /* Updated Profile Username and Generation Styling */
+        #profile-username {
+          color: #ffffff;
+            --primary-color: none;
+          font-family: 'Audiowide', cursive;
+          font-size: 1.2rem;
+          text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.4);
+          padding-right: 10px;
+          transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        #profile-username:hover {
+          color: #51b004;
+          transform: scale(1.1);
+        }
+
+        #profile-generation {
+            font-family: 'Orbitron', sans-serif;
+          font-size: 1rem;
+          color: #f9f9f9;
+          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+          font-weight: 400;
+          letter-spacing: 0.5px;
+          transition: color 0.3s ease;
+        }
+
+        #profile-generation:hover {
+          color: #ffcc00;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html" data-i18n="nav.home" id="nav-home">Home</a></li>
+                <li><a href="about.html" data-i18n="nav.about" id="nav-about">About</a></li>
+                <li><a href="play.html" data-i18n="nav.play" id="nav-play">Play</a></li>
+                <li><a href="how-to-play.html" data-i18n="nav.how" id="nav-how">How to Play</a></li>
+                <li><a href="contact.html" class="active" data-i18n="nav.contact" id="nav-contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="user-dashboard" id="user-dashboard">
+            <div class="user-info" id="user-info">
+                <div class="user-profile" id="user-profile">
+                    <img id="profile-image" src="homepage11.jpg" alt="Profile Image" class="profile-img">
+                    <div class="username-generation">
+                        <span id="profile-username"></span>
+                        <span id="profile-generation"></span>
+                    </div>
+                    <button class="profile-dropdown-btn">▼</button>
+                    <div class="dropdown" id="profile-dropdown">
+                        <span id="profile-generation-dropdown"></span>
+                        <button class="logout-btn" onclick="logout()" data-i18n="user.logout">Logout</button>
+                    </div>
+                </div>
+                <div id="guest-info" style="display: block;">
+                    <a href="login.html" class="login-link" data-i18n="user.login">Login</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main style="position: relative; overflow: hidden;">
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+                    background-image: url('metaverse-concept-collage-design.jpg');
+                    background-size: cover; background-position: center;
+                    background-repeat: no-repeat; background-attachment: fixed;
+                    opacity: 0.3; z-index: 0;">
+        </div>
+
+        <section class="contact-section" style="position: relative; z-index: 1;">
+            <div class="container">
+                <h2 id="contact-heading" data-i18n="contact.heading">Contact Us</h2>
+
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <h3 id="get-in-touch" data-i18n="contact.get_in_touch">Get in Touch</h3>
+                        <p id="contact-desc" data-i18n="contact.description">
+                            Have questions, feedback, or suggestions about Shape Shifter Duel? We'd love to hear from you!
+                        </p>
+
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <h4 id="email-label" data-i18n="contact.email">Email</h4>
+                                <p id="email-value" data-i18n="contact.email_value">support@shapeshifterduel.com</p>
+                            </div>
+
+                            <div class="contact-method">
+                                <h4 id="social-label" data-i18n="contact.social">Social Media</h4>
+                                <div class="social-links">
+                                    <a href="#" class="social-link" id="link-twitter" data-i18n="contact.twitter">Twitter</a>
+                                    <a href="#" class="social-link" id="link-discord" data-i18n="contact.discord">Discord</a>
+                                    <a href="#" class="social-link" id="link-instagram" data-i18n="contact.instagram">Instagram</a>
+                                </div>
+                            </div>
+
+                            <div class="contact-method">
+                                <h4 id="business-label" data-i18n="contact.business">Business Inquiries</h4>
+                                <p id="business-value" data-i18n="contact.business_value">business@shapeshifterduel.com</p>
+                            </div>
+                        </div>
+
+                        <div class="support-hours">
+                            <h4 id="support-label" data-i18n="contact.support">Support Hours</h4>
+                            <p id="support-time" data-i18n="contact.support_time">Monday - Friday: 9:00 AM - 5:00 PM EST</p>
+                            <p id="support-reply" data-i18n="contact.support_reply">We typically respond to all inquiries within 24-48 hours.</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-form-container">
+                        <h3 id="send-message-heading" data-i18n="form.heading">Send Us a Message</h3>
+                        <form id="contact-form" class="contact-form">
+                            <div class="form-group">
+                                <label for="name" id="label-name" data-i18n="form.name">Name</label>
+                                <input type="text" id="name" name="name" placeholder="Your name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" id="label-email" data-i18n="form.email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="Your email address" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="subject" id="label-subject" data-i18n="form.subject">Subject</label>
+                                <select id="subject" name="subject" required>
+                                    <option value="" disabled selected data-i18n="form.select_subject">Select a subject</option>
+                                    <option value="general" data-i18n="form.general">General Question</option>
+                                    <option value="bug" data-i18n="form.bug">Bug Report</option>
+                                    <option value="feature" data-i18n="form.feature">Feature Request</option>
+                                    <option value="account" data-i18n="form.account">Account Help</option>
+                                    <option value="other" data-i18n="form.other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message" id="label-message" data-i18n="form.message">Message</label>
+                                <textarea id="message" name="message" placeholder="Your message" rows="6" required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="checkbox" id="subscribe" name="subscribe">
+                                <label for="subscribe" id="label-subscribe" data-i18n="form.subscribe">Subscribe to our newsletter for game updates</label>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary" id="send-button" data-i18n="form.send">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="faq-section">
+                    <h3 id="faq-heading" data-i18n="faq.heading">Frequently Asked Questions</h3>
+                    <div class="faq-items">
+                        <div class="faq-item">
+                            <h4 data-i18n="faq.q1">Is Shape Shifter Duel free to play?</h4>
+                            <p data-i18n="faq.a1">Yes, the web-based version of Shape Shifter Duel is completely free to play.</p>
+                        </div>
+
+                        <div class="faq-item">
+                            <h4 data-i18n="faq.q2">Does the game save my progress?</h4>
+                            <p data-i18n="faq.a2">Progress is saved automatically if you're playing while logged in to your account.</p>
+                        </div>
+
+                        <div class="faq-item">
+                            <h4 data-i18n="faq.q3">Is there a mobile version available?</h4>
+                            <p data-i18n="faq.a3">The web version is responsive and can be played on mobile browsers.</p>
+                        </div>
+
+                        <div class="faq-item">
+                            <h4 data-i18n="faq.q4">How do I report a bug?</h4>
+                            <p data-i18n="faq.a4">You can report bugs through the contact form by selecting "Bug Report" as the subject.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="background-color: black;">
+        <div class="container">
+            <div class="footer-grid" style="display: flex;">
+                <div class="footer-section">
+                    <h4 data-i18n="footer.nav_heading">Navigation</h4>
+                    <ul>
+                        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+                        <li><a href="about.html" data-i18n="nav.about">About</a></li>
+                        <li><a href="play.html" data-i18n="nav.play">Play</a></li>
+                        <li><a href="how-to-play.html" data-i18n="nav.how">How to Play</a></li>
+                        <li><a href="login.html" data-i18n="nav.login">Login/Signup</a></li>
+                        <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-i18n="footer.newsletter_heading">Stay Updated</h4>
+                    <p data-i18n="footer.newsletter_text">Subscribe to our newsletter for updates on new features and tournaments.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn btn-accent" data-i18n="footer.subscribe">Subscribe</button>
+                    </div>
+                    <div class="contact-info">
+                        <p data-i18n="footer.contact">Contact: <a href="mailto:support@shapeshifterduel.com">support@shapeshifterduel.com</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="language-selector">
+                    <select onchange="applyTranslations(this.value)">
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                        <option value="de">Deutsch</option>
+                        <option value="ja">日本語</option>
+                    </select>
+                </div>
+                <p class="copyright">
+                    &copy; 2025 Shape Shifter Duel. <span data-i18n="footer.rights">All rights reserved.</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script>
+        // Simple form submission (prevent default for demonstration)
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contact-form');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('This is a demonstration. In a real application, this would send the message to our servers.');
+                contactForm.reset();
+            });
+        });
+    </script> <script>
+        function updateUserDisplay() {
+            const currentUser = localStorage.getItem('currentUser');
+            const guestInfo = document.getElementById('guest-info');
+            const userProfile = document.getElementById('user-profile');
+            const profileImage = document.getElementById('profile-image');
+            const profileUsername = document.getElementById('profile-username');
+            const profileAge = document.getElementById('profile-age');
+            const profileGender = document.getElementById('profile-gender');
+            const profileDropdown = document.getElementById('profile-dropdown');
+            const profileDropdownBtn = document.querySelector('.profile-dropdown-btn');
+
+            if (currentUser) {
+                guestInfo.style.display = 'none';
+                userProfile.style.display = 'flex';
+                const user = JSON.parse(currentUser);
+                profileImage.src = user.profileImage;
+                profileUsername.textContent = user.username;
+                profileAge.textContent = `Age: ${user.age}`;
+                profileGender.textContent = `Gender: ${user.gender}`;
+
+                // Open dropdown when button is clicked
+                profileDropdownBtn.addEventListener('click', function () {
+                    profileDropdown.classList.toggle('show');
+                    profileDropdownBtn.classList.toggle('open');
+                });
+            } else {
+                // Hide dropdown and reset button state when logged out
+                profileDropdown.classList.remove('show');
+                profileDropdownBtn.classList.remove('open');
+                guestInfo.style.display = 'block';
+                userProfile.style.display = 'none';
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            updateUserDisplay();
+        }
+
+        window.onload = updateUserDisplay;
+    </script>
+    <script>
+        // Adjusted to use age instead of birth year
+        function getGeneration(age) {
+          const currentYear = new Date().getFullYear();
+          const birthYear = currentYear - age; // Calculate birth year from age
+          
+          if (birthYear >= 1901 && birthYear <= 1927) return "The Greatest Generation";
+          if (birthYear >= 1928 && birthYear <= 1945) return "The Silent Generation";
+          if (birthYear >= 1946 && birthYear <= 1964) return "Baby Boomers";
+          if (birthYear >= 1965 && birthYear <= 1980) return "Gen X";
+          if (birthYear >= 1981 && birthYear <= 1996) return "Millennials";
+          if (birthYear >= 1997 && birthYear <= 2012) return "Gen Z";
+          if (birthYear >= 2013 && birthYear <= 2025) return "Gen Alpha";
+          if (birthYear >= 2025 && birthYear <= 2039) return "Gen Beta";
+          return "Unknown Generation";
+        }
+      
+        // Function to update user display
+        function updateUserDisplay() {
+          const currentUser = localStorage.getItem('currentUser');
+          const guestInfo = document.getElementById('guest-info');
+          const userProfile = document.getElementById('user-profile');
+          const profileUsername = document.getElementById('profile-username');
+          const profileGeneration = document.getElementById('profile-generation');
+          const profileGenerationDropdown = document.getElementById('profile-generation-dropdown');
+          const profileDropdown = document.getElementById('profile-dropdown');
+          const profileDropdownBtn = document.querySelector('.profile-dropdown-btn');
+
+          if (currentUser) {
+            guestInfo.style.display = 'none';
+            userProfile.style.display = 'flex';
+            const user = JSON.parse(currentUser);
+            
+            // Set profile image if available, otherwise use default
+            profileUsername.textContent = user.username;
+            
+            // Use age instead of birth year
+            const age = user.age || 25; // Default age if not provided
+            const generation = getGeneration(age);
+            profileGeneration.textContent = generation;
+            profileGenerationDropdown.textContent = generation;
+          } else {
+            profileDropdown.classList.remove('show');
+            profileDropdownBtn.classList.remove('open');
+            guestInfo.style.display = 'block';
+            userProfile.style.display = 'none';
+          }
+        }
+      
+        // Logout function
+        function logout() {
+          localStorage.removeItem('currentUser');
+          updateUserDisplay();
+          // Optional: Redirect to home page after logout
+          window.location.href = 'index.html';
+        }
+      
+        // Handle dropdown click event
+        document.addEventListener('click', function (event) {
+          const profileDropdown = document.getElementById('profile-dropdown');
+          const profileDropdownBtn = document.querySelector('.profile-dropdown-btn');
+          const userProfile = document.getElementById('user-profile');
+        
+          if (userProfile.contains(event.target)) {
+            if (event.target.classList.contains('profile-dropdown-btn')) {
+              profileDropdown.classList.toggle('show');
+              profileDropdownBtn.classList.toggle('open');
+            }
+          } else {
+            profileDropdown.classList.remove('show');
+            profileDropdownBtn.classList.remove('open');
+          }
+        });
+
+        const resources = {
+
+
+
+            es: { translation:{
+    nav: {
+      home: "Inicio",
+      about: "Acerca de",
+      play: "Jugar",
+      how: "Cómo Jugar",
+      contact: "Contacto",
+      login: "Iniciar Sesión / Registrarse"
+    },
+    user: {
+      logout: "Cerrar sesión",
+      login: "Iniciar sesión"
+    },
+    contact: {
+      heading: "Contáctanos",
+      get_in_touch: "Ponte en contacto",
+      description: "¿Tienes preguntas, comentarios o sugerencias sobre Shape Shifter Duel? ¡Nos encantaría saber de ti!",
+      email: "Correo electrónico",
+      email_value: "soporte@shapeshifterduel.com",
+      social: "Redes sociales",
+      twitter: "Twitter",
+      discord: "Discord",
+      instagram: "Instagram",
+      business: "Consultas comerciales",
+      business_value: "negocios@shapeshifterduel.com",
+      support: "Horario de atención",
+      support_time: "Lunes a Viernes: 9:00 AM - 5:00 PM EST",
+      support_reply: "Normalmente respondemos en un plazo de 24 a 48 horas."
+    },
+    form: {
+      heading: "Envíanos un mensaje",
+      name: "Nombre",
+      email: "Correo electrónico",
+      subject: "Asunto",
+      select_subject: "Selecciona un asunto",
+      general: "Pregunta general",
+      bug: "Reporte de error",
+      feature: "Sugerencia de función",
+      account: "Ayuda con la cuenta",
+      other: "Otro",
+      message: "Mensaje",
+      subscribe: "Suscríbete a nuestro boletín para recibir actualizaciones del juego",
+      send: "Enviar mensaje"
+    },
+    faq: {
+      heading: "Preguntas Frecuentes",
+      q1: "¿Shape Shifter Duel es gratuito?",
+      a1: "Sí, la versión web es completamente gratuita.",
+      q2: "¿Se guarda mi progreso?",
+      a2: "Sí, si inicias sesión, tu progreso se guarda automáticamente.",
+      q3: "¿Hay una versión móvil?",
+      a3: "La versión web es adaptable y se puede jugar en móviles.",
+      q4: "¿Cómo informo de un error?",
+      a4: "Puedes reportar errores mediante el formulario seleccionando 'Reporte de error'."
+    },
+    footer: {
+      nav_heading: "Navegación",
+      newsletter_heading: "Mantente Informado",
+      newsletter_text: "Suscríbete a nuestro boletín para conocer nuevas funciones y torneos.",
+      subscribe: "Suscribirse",
+      contact: "Contacto: support@shapeshifterduel.com",
+      rights: "Todos los derechos reservados."
+    }
+  }},
+
+  de: { translation: {
+    nav: {
+      home: "Startseite",
+      about: "Über uns",
+      play: "Spielen",
+      how: "Spielanleitung",
+      contact: "Kontakt",
+      login: "Anmelden / Registrieren"
+    },
+    user: {
+      logout: "Abmelden",
+      login: "Anmelden"
+    },
+    contact: {
+      heading: "Kontaktiere uns",
+      get_in_touch: "Kontakt aufnehmen",
+      description: "Fragen, Feedback oder Vorschläge zu Shape Shifter Duel? Wir freuen uns auf deine Nachricht!",
+      email: "E-Mail",
+      email_value: "support@shapeshifterduel.com",
+      social: "Soziale Medien",
+      twitter: "Twitter",
+      discord: "Discord",
+      instagram: "Instagram",
+      business: "Geschäftsanfragen",
+      business_value: "business@shapeshifterduel.com",
+      support: "Supportzeiten",
+      support_time: "Montag - Freitag: 9:00 - 17:00 Uhr EST",
+      support_reply: "Wir antworten in der Regel innerhalb von 24–48 Stunden."
+    },
+    form: {
+      heading: "Sende uns eine Nachricht",
+      name: "Name",
+      email: "E-Mail",
+      subject: "Betreff",
+      select_subject: "Betreff auswählen",
+      general: "Allgemeine Frage",
+      bug: "Fehlermeldung",
+      feature: "Funktionsvorschlag",
+      account: "Kontohilfe",
+      other: "Sonstiges",
+      message: "Nachricht",
+      subscribe: "Abonniere unseren Newsletter für Spielupdates",
+      send: "Nachricht senden"
+    },
+    faq: {
+      heading: "Häufig gestellte Fragen",
+      q1: "Ist Shape Shifter Duel kostenlos spielbar?",
+      a1: "Ja, die Webversion ist komplett kostenlos.",
+      q2: "Wird mein Fortschritt gespeichert?",
+      a2: "Wenn du eingeloggt bist, wird dein Fortschritt automatisch gespeichert.",
+      q3: "Gibt es eine mobile Version?",
+      a3: "Die Webversion ist mobiloptimiert und spielbar.",
+      q4: "Wie melde ich einen Fehler?",
+      a4: "Wähle im Kontaktformular 'Fehlermeldung' aus."
+    },
+    footer: {
+      nav_heading: "Navigation",
+      newsletter_heading: "Bleib auf dem Laufenden",
+      newsletter_text: "Abonniere unseren Newsletter für neue Features und Turniere.",
+      subscribe: "Abonnieren",
+      contact: "Kontakt: support@shapeshifterduel.com",
+      rights: "Alle Rechte vorbehalten."
+    }}
+  },
+
+  ja: { translation: {
+    nav: {
+      home: "ホーム",
+      about: "概要",
+      play: "プレイ",
+      how: "遊び方",
+      contact: "お問い合わせ",
+      login: "ログイン / 登録"
+    },
+    user: {
+      logout: "ログアウト",
+      login: "ログイン"
+    },
+    contact: {
+      heading: "お問い合わせ",
+      get_in_touch: "ご連絡ください",
+      description: "Shape Shifter Duelに関するご質問・ご意見・ご提案があれば、お気軽にご連絡ください！",
+      email: "メール",
+      email_value: "support@shapeshifterduel.com",
+      social: "ソーシャルメディア",
+      twitter: "Twitter",
+      discord: "Discord",
+      instagram: "Instagram",
+      business: "ビジネスのお問い合わせ",
+      business_value: "business@shapeshifterduel.com",
+      support: "サポート時間",
+      support_time: "月〜金: 午前9時〜午後5時（EST）",
+      support_reply: "通常24〜48時間以内に返信いたします。"
+    },
+    form: {
+      heading: "メッセージを送る",
+      name: "名前",
+      email: "メール",
+      subject: "件名",
+      select_subject: "件名を選択",
+      general: "一般的な質問",
+      bug: "バグ報告",
+      feature: "機能リクエスト",
+      account: "アカウントのサポート",
+      other: "その他",
+      message: "メッセージ",
+      subscribe: "ゲームの最新情報を受け取るにはニュースレターを購読してください",
+      send: "送信する"
+    },
+    faq: {
+      heading: "よくある質問",
+      q1: "Shape Shifter Duelは無料ですか？",
+      a1: "はい、ウェブ版は完全に無料でプレイできます。",
+      q2: "進行状況は保存されますか？",
+      a2: "ログインしていれば、進行状況は自動的に保存されます。",
+      q3: "モバイル版はありますか？",
+      a3: "ウェブ版はモバイル対応です。",
+      q4: "バグを報告するには？",
+      a4: "「バグ報告」を選んでフォームから送信してください。"
+    },
+    footer: {
+      nav_heading: "ナビゲーション",
+      newsletter_heading: "最新情報をゲット",
+      newsletter_text: "新機能やトーナメント情報をお届けします。",
+      subscribe: "購読する",
+      contact: "連絡先: support@shapeshifterduel.com",
+      rights: "すべての権利を保有します。"
+    }}
+  },
+
+  te: { translation: {
+    nav: {
+      home: "హోమ్",
+      about: "గురించి",
+      play: "ఆడండి",
+      how: "ఎలా ఆడాలి",
+      contact: "సంప్రదించండి",
+      login: "లాగిన్ / నమోదు"
+    },
+    user: {
+      logout: "లాగౌట్",
+      login: "లాగిన్"
+    },
+    contact: {
+      heading: "మమ్మల్ని సంప్రదించండి",
+      get_in_touch: "మమ్మల్ని సంప్రదించండి",
+      description: "Shape Shifter Duel గురించి మీ ప్రశ్నలు, అభిప్రాయాలు లేదా సూచనలుంటే మాతో పంచుకోండి!",
+      email: "ఇమెయిల్",
+      email_value: "support@shapeshifterduel.com",
+      social: "సోషల్ మీడియా",
+      twitter: "ట్విట్టర్",
+      discord: "డిస్కార్డ్",
+      instagram: "ఇన్స్టాగ్రామ్",
+      business: "వ్యాపార విచారణలు",
+      business_value: "business@shapeshifterduel.com",
+      support: "సహాయం సమయం",
+      support_time: "సోమవారం - శుక్రవారం: ఉదయం 9:00 - సాయంత్రం 5:00 EST",
+      support_reply: "మేము సాధారణంగా 24-48 గంటల్లో స్పందిస్తాము."
+    },
+    form: {
+      heading: "సందేశాన్ని పంపండి",
+      name: "పేరు",
+      email: "ఇమెయిల్",
+      subject: "విషయం",
+      select_subject: "విషయాన్ని ఎంచుకోండి",
+      general: "సాధారణ ప్రశ్న",
+      bug: "బగ్ నివేదిక",
+      feature: "ఫీచర్ అభ్యర్థన",
+      account: "ఖాతా సహాయం",
+      other: "ఇతర",
+      message: "సందేశం",
+      subscribe: "గేమ్ అప్డేట్స్ కోసం మా వార్తాలేఖకు చందా పొందండి",
+      send: "సందేశం పంపండి"
+    },
+    faq: {
+      heading: "తరచూ అడిగే ప్రశ్నలు",
+      q1: "Shape Shifter Duel ఉచితం?",
+      a1: "అవును, వెబ్ వెర్షన్ పూర్తిగా ఉచితం.",
+      q2: "నా ప్రోగ్రెస్ సేవ్ అవుతుందా?",
+      a2: "మీరు లాగిన్ అయ్యి ఉంటే ఆటోమాటిక్‌గా సేవ్ అవుతుంది.",
+      q3: "మొబైల్ వెర్షన్ ఉందా?",
+      a3: "వెబ్ వెర్షన్ మొబైల్ ఫ్రెండ్లీగా రూపొందించబడింది.",
+      q4: "బగ్ ఎలా నివేదించాలి?",
+      a4: "'బగ్ నివేదిక'ను ఎంచుకుని ఫారం ద్వారా పంపండి."
+    },
+    footer: {
+      nav_heading: "నావిగేషన్",
+      newsletter_heading: "అప్డేట్స్ కోసం",
+      newsletter_text: "ఫీచర్లు & టోర్నమెంట్ల అప్డేట్స్ కోసం చందా పొందండి.",
+      subscribe: "చందా",
+      contact: "సంప్రదించండి: support@shapeshifterduel.com",
+      rights: "అన్ని హక్కులు కలదు."
+    }}
+  },
+
+  fr: { translation: {
+    nav: {
+      home: "Accueil",
+      about: "À propos",
+      play: "Jouer",
+      how: "Comment jouer",
+      contact: "Contact",
+      login: "Connexion / Inscription"
+    },
+    user: {
+      logout: "Déconnexion",
+      login: "Connexion"
+    },
+    contact: {
+      heading: "Nous contacter",
+      get_in_touch: "Prenez contact",
+      description: "Vous avez des questions ou des suggestions ? Écrivez-nous !",
+      email: "E-mail",
+      email_value: "support@shapeshifterduel.com",
+      social: "Réseaux sociaux",
+      twitter: "Twitter",
+      discord: "Discord",
+      instagram: "Instagram",
+      business: "Demandes commerciales",
+      business_value: "business@shapeshifterduel.com",
+      support: "Horaires de support",
+      support_time: "Lundi - Vendredi : 9h - 17h (EST)",
+      support_reply: "Nous répondons généralement sous 24 à 48 heures."
+    },
+    form: {
+      heading: "Envoyez-nous un message",
+      name: "Nom",
+      email: "E-mail",
+      subject: "Sujet",
+      select_subject: "Choisir un sujet",
+      general: "Question générale",
+      bug: "Rapport de bug",
+      feature: "Suggestion de fonctionnalité",
+      account: "Aide au compte",
+      other: "Autre",
+      message: "Message",
+      subscribe: "S’abonner à la newsletter pour les mises à jour",
+      send: "Envoyer le message"
+    },
+    faq: {
+      heading: "Questions fréquentes",
+      q1: "Shape Shifter Duel est-il gratuit ?",
+      a1: "Oui, la version web est entièrement gratuite.",
+      q2: "Mon progrès est-il sauvegardé ?",
+      a2: "Oui, si vous êtes connecté.",
+      q3: "Existe-t-il une version mobile ?",
+      a3: "La version web est compatible mobile.",
+      q4: "Comment signaler un bug ?",
+      a4: "Utilisez le formulaire en sélectionnant 'Rapport de bug'."
+    },
+    footer: {
+      nav_heading: "Navigation",
+      newsletter_heading: "Restez informé",
+      newsletter_text: "Abonnez-vous à notre newsletter pour les nouveautés et tournois.",
+      subscribe: "S’abonner",
+      contact: "Contact : support@shapeshifterduel.com",
+      rights: "Tous droits réservés."
+    }
+  }}
+};
+
+i18next.init({
+    lng: 'en',
+    debug: true,
+    resources
+}, function(err, t) {
+    // Initialize jQuery-i18next
+    jqueryI18next.init(i18next, $);
+    
+    // Localize the page
+    $('body').localize();
+});
+
+// Language selector change handler
+document.querySelector('.language-selector select').addEventListener('change', function() {
+    i18next.changeLanguage(this.value, function() {
+        $('body').localize();
+    });
+});
+
+
+      
+        // On page load, update the user display
+        window.onload = updateUserDisplay;
+    </script>
+</body>
+</html>

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shape Shifter Duel - About</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto&family=Dancing+Script&family=Pacifico&family=Great+Vibes&family=Satisfy&family=Allura&family=Brush+Script+MT&family=Lobster&family=Zapfino&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Russo+One&family=Orbitron&family=Bangers&family=VT323&family=Audiowide&family=Major+Mono+Display&family=Anton&display=swap" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/21.6.3/i18next.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-i18next/1.0.0/jquery-i18next.min.js"></script>
+
+  <style>
+        .user-info {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+        }
+
+        .user-profile {
+          display: none; /* Hidden by default */
+          align-items: center;
+          gap: 10px;
+          position: relative;
+        }
+
+        .profile-img {
+          width: 80px;
+          height: 80px;
+          right: 30px;
+          border-radius: 50%;
+          border: 3px solid #00ffae;
+        }
+
+        #profile-username {
+          color: rgb(255, 255, 255);
+          font-family:Georgia, 'Times New Roman', Times, serif;
+          font-size: 1rem;
+        }
+
+        .dropdown {
+          position: absolute;
+          top: 100%;
+          right: 0;
+          background-color: #800080;
+          color: #f9f9f9;
+          border-radius: 6px;
+          padding: 10px;
+          display: none;
+          flex-direction: column;
+          gap: 20px;
+          min-width: 160px;
+          z-index: 1000;
+          box-shadow: 0 4px 8px rgba(255, 255, 255);
+        }
+
+        .dropdown button,
+        .dropdown span {
+          color: white;
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-family: 'Roboto', sans-serif;
+        }
+
+        .dropdown button:hover {
+          color: #ffffff;
+        }
+
+        .dropdown .logout-btn {
+          padding: 0.5rem 1rem;
+          background-color: #ffffff;
+          border: none;
+          cursor: pointer;
+          border-radius: 4px;
+          color: black;
+        }
+
+        .dropdown .logout-btn:hover {
+          background-color: #980000;
+        }
+
+        .profile-dropdown-btn.open {
+          transform: rotate(180deg);
+          transition: transform 0.3s ease;
+        }
+
+        header {
+          background-color: rgba(0, 0, 0, 0.5);
+          justify-content: center;
+          padding: 10px;
+        }
+
+        .nav-links {
+          list-style-type: none;
+        }
+
+        .nav-links li {
+          display: inline;
+          margin-right: 20px;
+        }
+
+        .nav-links a {
+          color: white;
+          text-decoration: none;
+        }
+
+        .login-link {
+          color: white;
+        }
+
+        .dropdown.show {
+          display: flex;
+        }
+        /* Updated Profile Username and Generation Styling */
+        #profile-username {
+          color: #ffffff;
+            --primary-color: none;
+          font-family: 'Audiowide', cursive;
+          font-size: 1.2rem;
+          text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.4);
+          padding-right: 10px;
+          transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        #profile-username:hover {
+          color: #51b004;
+          transform: scale(1.1);
+        }
+
+        #profile-generation {
+            font-family: 'Orbitron', sans-serif;
+          font-size: 1rem;
+          color: #f9f9f9;
+          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+          font-weight: 400;
+          letter-spacing: 0.5px;
+          transition: color 0.3s ease;
+        }
+
+        #profile-generation:hover {
+          color: #ffcc00;
+        }
+    </style>
+</head>
+
+<body>
+  <header>
+      <nav>
+          <ul class="nav-links">
+              <li><a href="index.html" data-i18n="home">Home</a></li>
+              <li><a href="about.html" class="active" data-i18n="about">About</a></li>
+              <li><a href="play.html" data-i18n="play">Play</a></li>
+              <li><a href="how-to-play.html" data-i18n="howToPlay">How to Play</a></li>
+              <li><a href="contact.html" data-i18n="contact">Contact</a></li>
+          </ul>
+      </nav>
+      <div class="user-dashboard" id="user-dashboard">
+          <div class="user-info" id="user-info">
+              <div class="user-profile" id="user-profile">
+                  <img id="profile-image" src="homepage11.jpg" alt="Profile Image" class="profile-img">
+                  <div class="username-generation">
+                      <span id="profile-username" data-i18n="profileUsername"></span>
+                      <span id="profile-generation" data-i18n="profileGeneration"></span>
+                  </div>
+                  <button class="profile-dropdown-btn" data-i18n="profileDropdownBtn">▼</button>
+                  <div class="dropdown" id="profile-dropdown">
+                      <span id="profile-generation-dropdown" data-i18n="profileGenerationDropdown"></span>
+                      <button class="logout-btn" onclick="logout()" data-i18n="logout">Logout</button>
+                  </div>
+              </div>
+              <div id="guest-info" style="display: block;">
+                  <a href="login.html" class="login-link" data-i18n="login">Login</a>
+              </div>
+          </div>
+      </div>
+  </header>
+
+  <main style="position: relative; background-image: url('5924401.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; padding: 60px 0;">
+
+      <section class="about-section">
+          <div class="container" style="position: relative; z-index: 1;">
+
+              <!-- Background Box Behind Text -->
+              <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.6); border-radius: 12px; z-index: 0;"></div>
+
+              <!-- Content on Top -->
+              <div style="position: relative; z-index: 1; padding: 30px;">
+                  <h2 style="color: white;" data-i18n="aboutShapeShifterDuel">About Shape Shifter Duel</h2>
+                  <div class="about-content" style="display: flex; flex-wrap: wrap; gap: 30px; color: white;">
+                      <div class="about-text" style="flex: 1;">
+                          <h3 data-i18n="gameConcept">Game Concept</h3>
+                          <p data-i18n="gameConceptDescription">Shape Shifter Duel is a retro-inspired arcade shooter that combines fast-paced action with strategic shape-shifting mechanics. As the player, you control a ship that can transform between three different shapes: Circle, Triangle, and Cube.</p>
+                          <p data-i18n="gameDescription">The core gameplay revolves around matching your shape to enemy types for maximum damage. This creates a dynamic combat system where quick reflexes and strategic decisions are equally important.</p>
+
+                          <h3 data-i18n="developmentStory">Development Story</h3>
+                          <p data-i18n="developmentStoryDescription">The game was originally developed as a Java application and has since been converted to a web-based JavaScript game with HTML5 Canvas. This transition has made the game more accessible to players across different platforms.</p>
+                          <p data-i18n="gameInspiration">Shape Shifter Duel draws inspiration from classic arcade games like Galaga and Space Invaders, but adds its own unique twist with the shape-shifting mechanic. The retro-style visuals and sound effects pay homage to the golden age of arcade gaming.</p>
+                      </div>
+                      <div class="about-features" style="flex: 1;">
+                          <h3 data-i18n="keyFeatures">Key Features</h3>
+                          <ul>
+                              <li><strong data-i18n="adventureMode">Adventure Mode:</strong> <p data-i18n="adventureModeDescription">Progress through increasingly difficult levels with special enemy patterns and boss battles...</p></li>
+                              <li><strong data-i18n="combatMode">Combat Mode:</strong> <p data-i18n="combatModeDescription">An endless wave-based challenge mode where you face increasingly difficult enemies...</p></li>
+                              <li><strong data-i18n="shapeShiftingMechanic">Shape-Shifting Mechanic:</strong> <p data-i18n="shapeShiftingDescription">Switch between three distinct shapes to match enemy types...</p></li>
+                              <li><strong data-i18n="powerUpsSystem">Power-ups System:</strong> <p data-i18n="powerUpsDescription">Collect various power-ups to enhance your ship's capabilities...</p></li>
+                              <li><strong data-i18n="retroAesthetic">Retro Aesthetic:</strong> <p data-i18n="retroAestheticDescription">Enjoy the nostalgic pixel art style and chiptune-inspired sound effects...</p></li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+      </section>
+
+  </main>
+
+  <footer style="background-color: black;">
+      <div class="container">
+          <div class="footer-grid" style="display: flex;">
+              <!-- Navigation Links -->
+              <div class="footer-section">
+                  <h4 data-i18n="navigation">Navigation</h4>
+                  <ul>
+                      <li><a href="index.html" data-i18n="home">Home</a></li>
+                      <li><a href="about.html" data-i18n="about">About</a></li>
+                      <li><a href="play.html" data-i18n="play">Play</a></li>
+                      <li><a href="how-to-play.html" data-i18n="howToPlay">How to Play</a></li>
+                      <li><a href="contact.html" data-i18n="contact">Contact</a></li>
+                  </ul>
+              </div>
+
+              <!-- Social Media & Community -->
+              <!-- Contact Info & Newsletter -->
+              <div class="footer-section">
+                  <h4 data-i18n="stayUpdated">Stay Updated</h4>
+                  <p data-i18n="newsletterDescription">Subscribe to our newsletter for updates on new features and tournaments.</p>
+                  <div class="newsletter-form">
+                      <input type="email" placeholder="Your email address" data-i18n="emailPlaceholder">
+                      <button type="submit" class="btn btn-accent" data-i18n="subscribeButton">Subscribe</button>
+                  </div>
+                  <div class="contact-info">
+                      <p data-i18n="contactInfo">Contact: <a href="mailto:support@shapeshifterduel.com" data-i18n="supportEmail">support@shapeshifterduel.com</a></p>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Credits / Copyright -->
+          <div class="footer-bottom">
+              <div class="language-selector">
+                  <select>
+                      <option value="en" data-i18n="english">English</option>
+                      <option value="es" data-i18n="spanish">Español</option>
+                      <option value="fr" data-i18n="french">Français</option>
+                      <option value="de" data-i18n="german">Deutsch</option>
+                      <option value="te" data-i18n="telugu">తెలుగు</option>
+                      <option value="ja" data-i18n="japanese">日本語</option>
+                  </select>
+              </div>
+              <p class="copyright" data-i18n="copyright">&copy; 2025 Shape Shifter Duel. All rights reserved.</p>
+          </div>
+      </div>
+  </footer>
+    <script>
+        // Adjusted to use age instead of birth year
+        function getGeneration(age) {
+          const currentYear = new Date().getFullYear();
+          const birthYear = currentYear - age; // Calculate birth year from age
+          
+          if (birthYear >= 1901 && birthYear <= 1927) return "The Greatest Generation";
+          if (birthYear >= 1928 && birthYear <= 1945) return "The Silent Generation";
+          if (birthYear >= 1946 && birthYear <= 1964) return "Baby Boomers";
+          if (birthYear >= 1965 && birthYear <= 1980) return "Gen X";
+          if (birthYear >= 1981 && birthYear <= 1996) return "Millennials";
+          if (birthYear >= 1997 && birthYear <= 2012) return "Gen Z";
+          if (birthYear >= 2013 && birthYear <= 2025) return "Gen Alpha";
+          if (birthYear >= 2025 && birthYear <= 2039) return "Gen Beta";
+          return "Unknown Generation";
+        }
+      
+        // Function to update user display
+        function updateUserDisplay() {
+          const currentUser = localStorage.getItem('currentUser');
+          const guestInfo = document.getElementById('guest-info');
+          const userProfile = document.getElementById('user-profile');
+          const profileUsername = document.getElementById('profile-username');
+          const profileGeneration = document.getElementById('profile-generation');
+          const profileGenerationDropdown = document.getElementById('profile-generation-dropdown');
+          const profileDropdown = document.getElementById('profile-dropdown');
+          const profileDropdownBtn = document.querySelector('.profile-dropdown-btn');
+
+          if (currentUser) {
+            guestInfo.style.display = 'none';
+            userProfile.style.display = 'flex';
+            const user = JSON.parse(currentUser);
+            
+            // Set profile image if available, otherwise use default
+            profileUsername.textContent = user.username;
+            
+            // Use age instead of birth year
+            const age = user.age || 25; // Default age if not provided
+            const generation = getGeneration(age);
+            profileGeneration.textContent = generation;
+            profileGenerationDropdown.textContent = generation;
+          } else {
+            profileDropdown.classList.remove('show');
+            profileDropdownBtn.classList.remove('open');
+            guestInfo.style.display = 'block';
+            userProfile.style.display = 'none';
+          }
+        }
+      
+        // Logout function
+        function logout() {
+          localStorage.removeItem('currentUser');
+          updateUserDisplay();
+          // Optional: Redirect to home page after logout
+          window.location.href = 'index.html';
+        }
+      
+        // Handle dropdown click event
+        document.addEventListener('click', function (event) {
+          const profileDropdown = document.getElementById('profile-dropdown');
+          const profileDropdownBtn = document.querySelector('.profile-dropdown-btn');
+          const userProfile = document.getElementById('user-profile');
+        
+          if (userProfile.contains(event.target)) {
+            if (event.target.classList.contains('profile-dropdown-btn')) {
+              profileDropdown.classList.toggle('show');
+              profileDropdownBtn.classList.toggle('open');
+            }
+          } else {
+            profileDropdown.classList.remove('show');
+            profileDropdownBtn.classList.remove('open');
+          }
+        });
+      
+        // On page load, update the user display
+        
+// Define translations for different languages
+const resources = {
+  en:{translation: {
+    home: "Home",
+    about: "About",
+    play: "Play",
+    howToPlay: "How to Play",
+    contact: "Contact",
+    login: "Login",
+    logout: "Logout",
+    subscribe: "Subscribe",
+    connectWithUs: "Connect With Us",
+    stayUpdated: "Stay Updated",
+    newsletter: "Subscribe to our newsletter for updates on new features and tournaments.",
+    contactEmail: "support@shapeshifterduel.com",
+    copyright: "© 2025 Shape Shifter Duel. All rights reserved.",
+    gameConcept: "Game Concept",
+    gameConceptDescription: "Shape Shifter Duel is a retro-inspired arcade shooter that combines fast-paced action with strategic shape-shifting mechanics. As the player, you control a ship that can transform between three different shapes: Circle, Triangle, and Cube.",
+    developmentStory: "Development Story",
+    devDescription: "The game was originally developed as a Java application and has since been converted to a web-based JavaScript game with HTML5 Canvas. This transition has made the game more accessible to players across different platforms.",
+    gameInspiration: "Shape Shifter Duel draws inspiration from classic arcade games like Galaga and Space Invaders, but adds its own unique twist with the shape-shifting mechanic. The retro-style visuals and sound effects pay homage to the golden age of arcade gaming.",
+    keyFeatures: "Key Features",
+    adventureMode: "Adventure Mode: Progress through increasingly difficult levels with special enemy patterns and boss battles...",
+    combatMode: "Combat Mode: An endless wave-based challenge mode where you face increasingly difficult enemies...",
+    shapeShifting: "Shape-Shifting Mechanic: Switch between three distinct shapes to match enemy types...",
+    powerUps: "Power-ups System: Collect various power-ups to enhance your ship's capabilities...",
+    retroAesthetic: "Retro Aesthetic: Enjoy the nostalgic pixel art style and chiptune-inspired sound effects..."
+  }},
+  es:{translation: {
+    home: "Inicio",aboutShapeShifterDuel: "Acerca de Shape Shifter Duel",
+    gameDescription:" La jugabilidad principal se basa en adaptar tu forma a los tipos de enemigos para causar el máximo daño. Esto crea un sistema de combate dinámico donde los reflejos rápidos y las decisiones estratégicas son igualmente importantes.",
+    developmentStoryDescription: "El juego se desarrolló originalmente como una aplicación Java a principios de la década de 2000. Desde entonces, ha evolucionado hasta convertirse en un juego completo, manteniendo su estética retro mientras introduce mecánicas modernas.",
+      adventureModeDescription: "En el Modo Aventura, los jugadores emprenden un viaje a través de niveles llenos de enemigos y entornos cada vez más desafiantes.",
+      combatModeDescription: "El Modo Combate es un modo de ritmo rápido y lleno de acción en el que los jugadores se enfrentan en intensas batallas uno a uno contra la IA o otros jugadores.",
+      shapeShiftingDescription: "La mecánica de transformación permite a los jugadores convertirse en diferentes formas, cada una con habilidades y ventajas únicas.",
+      powerUpsSystem: "Sistema de Potenciadores",
+      powerUpsDescription: "Recoge potenciadores a lo largo del juego para mejorar tus habilidades, ya sea aumentando tu salud, fuerza o desbloqueando movimientos especiales.",
+      retroAestheticDescription: "El diseño del juego está inspirado en los juegos de arcade clásicos de los años 80, con gráficos pixelados y una banda sonora de chiptune.",
+      newsletterDescription: "Suscríbete a nuestro boletín para recibir actualizaciones exclusivas sobre nuevas características, el progreso del desarrollo del juego y próximos torneos.",
+      subscribeButton: "Suscríbete Ahora",
+      contactInfo: "Para consultas, por favor contáctanos a través de la información de contacto a continuación.",
+      supportEmail: "soporte@shapeshifterduel.com",
+    about: "Acerca de",
+    play: "Jugar",
+    howToPlay: "Cómo Jugar",
+    contact: "Contacto",
+    login: "Iniciar sesión",
+    logout: "Cerrar sesión",
+    subscribe: "Suscribirse",
+    connectWithUs: "Conéctate con Nosotros",
+    stayUpdated: "Mantente Actualizado",
+    newsletter: "Suscríbete a nuestro boletín para actualizaciones sobre nuevas características y torneos.",
+    contactEmail: "soporte@shapeshifterduel.com",
+    copyright: "© 2025 Shape Shifter Duel. Todos los derechos reservados.",
+    gameConcept: "Concepto del Juego",
+    gameConceptDescription: "Shape Shifter Duel es un juego de disparos de arcade inspirado en lo retro que combina acción rápida con mecánicas estratégicas de cambio de forma. Como jugador, controlas una nave que puede transformarse en tres formas diferentes: Círculo, Triángulo y Cubo.",
+    developmentStory: "Historia del Desarrollo",
+    devDescription: "El juego se desarrolló originalmente como una aplicación de Java y desde entonces se ha convertido en un juego basado en la web utilizando JavaScript y HTML5 Canvas. Esta transición ha hecho que el juego sea más accesible para los jugadores en diferentes plataformas.",
+    gameInspiration: "Shape Shifter Duel se inspira en juegos clásicos de arcade como Galaga e Space Invaders, pero agrega un giro único con la mecánica de cambio de forma. Los efectos visuales y sonoros en estilo retro rinden homenaje a la época dorada de los juegos arcade.",
+    keyFeatures: "Características Principales",
+    adventureMode: "Modo Aventura: Avanza a través de niveles cada vez más difíciles con patrones especiales de enemigos y batallas contra jefes...",
+    combatMode: "Modo Combate: Un modo de desafío basado en olas interminables donde enfrentas enemigos cada vez más difíciles...",
+    shapeShifting: "Mecánica de Cambio de Forma: Cambia entre tres formas distintas para enfrentarte a diferentes tipos de enemigos...",
+    powerUps: "Sistema de Power-ups: Colecciona varios power-ups para mejorar las capacidades de tu nave...",
+    retroAesthetic: "Estética Retro: Disfruta del estilo de arte en píxeles y efectos de sonido inspirados en la música chiptune..."
+  }},
+  fr: {translation: {
+    home: "Accueil",
+    gameDescription:" Le gameplay principal consiste à adapter votre forme aux types d'ennemis pour infliger un maximum de dégâts. Cela crée un système de combat dynamique où les réflexes rapides et les décisions stratégiques sont tout aussi importants.",
+    about: "À propos",
+    play: "Jouer",
+    howToPlay: "Comment jouer",
+    contact: "Contact",
+    login: "Se connecter",
+    logout: "Se déconnecter",aboutShapeShifterDuel: "À propos de Shape Shifter Duel",
+    subscribe: "S'abonner",
+    connectWithUs: "Connectez-vous avec nous",
+    stayUpdated: "Restez à jour",
+    newsletter: "Abonnez-vous à notre newsletter pour des mises à jour sur les nouvelles fonctionnalités et les tournois.",
+    contactEmail: "support@shapeshifterduel.com",
+    copyright: "© 2025 Shape Shifter Duel. Tous droits réservés.",
+    gameConcept: "Concept du Jeu",
+    gameConceptDescription: "Shape Shifter Duel est un jeu de tir d'arcade inspiré des années rétro qui combine une action rapide avec des mécaniques stratégiques de changement de forme. En tant que joueur, vous contrôlez un vaisseau qui peut se transformer en trois formes différentes : Cercle, Triangle et Cube.",
+    developmentStory: "Histoire du Développement",
+    devDescription: "Le jeu a été développé à l'origine en tant qu'application Java et a ensuite été converti en un jeu web JavaScript avec HTML5 Canvas. Cette transition a permis au jeu d'être plus accessible aux joueurs sur différentes plateformes.",
+    gameInspiration: "Shape Shifter Duel s'inspire des jeux d'arcade classiques comme Galaga et Space Invaders, mais ajoute sa propre touche unique avec la mécanique de changement de forme. Les visuels rétro et les effets sonores rendent hommage à l'âge d'or des jeux d'arcade.",
+    keyFeatures: "Caractéristiques Principales",
+    adventureMode: "Mode Aventure: Progressez à travers des niveaux de plus en plus difficiles avec des motifs d'ennemis spéciaux et des batailles contre des boss...",
+    combatMode: "Mode Combat: Un mode de défi basé sur des vagues sans fin où vous affrontez des ennemis de plus en plus difficiles...",
+    shapeShifting: "Mécanique de Changement de Forme: Passez entre trois formes distinctes pour correspondre aux types d'ennemis...",
+    powerUps: "Système de Power-ups: Collectez divers power-ups pour améliorer les capacités de votre vaisseau...",
+    retroAesthetic: "Esthétique Rétro: Profitez du style pixel art nostalgique et des effets sonores inspirés de la musique chiptune..."
+  , developmentStoryDescription: "Le jeu a été développé à l'origine comme une application Java au début des années 2000. Depuis lors, il est devenu un jeu complet, conservant son esthétique rétro tout en introduisant des mécaniques modernes.",
+      adventureModeDescription: "Dans le mode aventure, les joueurs s'aventurent à travers des niveaux remplis d'ennemis et d'environnements de plus en plus difficiles.",
+      combatModeDescription: "Le mode combat est un mode rapide et plein d'action où les joueurs s'affrontent dans des batailles intenses en un contre un contre l'IA ou d'autres joueurs.",
+      shapeShiftingDescription: "La mécanique de métamorphose permet aux joueurs de se transformer en différentes formes, chacune ayant des capacités et des avantages uniques.",
+      powerUpsSystem: "Système de Puissances",
+      powerUpsDescription: "Collectez des puissances tout au long du jeu pour améliorer vos capacités, qu'il s'agisse d'augmenter votre santé, votre force ou de débloquer des mouvements spéciaux.",
+      retroAestheticDescription: "Le design du jeu est fortement inspiré des jeux d'arcade classiques des années 80, avec des graphismes pixelisés et une bande sonore chiptune.",
+      newsletterDescription: "Abonnez-vous à notre newsletter pour des mises à jour exclusives sur les nouvelles fonctionnalités, l'avancement du développement du jeu et les prochains tournois.",
+      subscribeButton: "Abonnez-vous Maintenant",
+      contactInfo: "Pour toute demande, veuillez nous contacter via les informations ci-dessous.",
+      supportEmail: "support@shapeshifterduel.com"}},
+  de: {translation: {
+    home: "Startseite",
+    gameDescription:" Das zentrale Gameplay dreht sich darum, deine Form an die Gegnertypen anzupassen, um maximalen Schaden zu verursachen. Dies schafft ein dynamisches Kampfsystem, bei dem schnelle Reflexe und strategische Entscheidungen gleichermaßen wichtig sind.",
+    about: "Über uns",
+    play: "Spielen",
+    howToPlay: "Wie man spielt",aboutShapeShifterDuel: "Über Shape Shifter Duel", developmentStoryDescription: "Das Spiel wurde ursprünglich Anfang der 2000er Jahre als Java-Anwendung entwickelt. Es hat sich seitdem zu einem vollwertigen Spiel entwickelt, das seine Retro-Ästhetik beibehält und gleichzeitig moderne Mechaniken einführt.",
+      adventureModeDescription: "Im Abenteuer-Modus begeben sich die Spieler auf eine Reise durch Level, die mit immer schwierigeren Feinden und Umgebungen gefüllt sind.",
+      combatModeDescription: "Der Kampfmodus ist ein schnelles, actiongeladenes Spiel, in dem die Spieler in intensiven Eins-gegen-Eins-Schlachten gegen KI oder andere Spieler antreten.",
+      shapeShiftingDescription: "Die Formwechsel-Mechanik ermöglicht es den Spielern, sich in verschiedene Formen zu verwandeln, von denen jede einzigartige Fähigkeiten und Vorteile bietet.",
+      powerUpsSystem: "Power-Up-System",
+      powerUpsDescription: "Sammle Power-Ups im Spiel, um deine Fähigkeiten zu verbessern, sei es durch Erhöhung deiner Gesundheit, Stärke oder das Freischalten spezieller Bewegungen.",
+      retroAestheticDescription: "Das Design des Spiels ist stark von klassischen Arcade-Spielen der 80er Jahre inspiriert, mit verpixelten Grafiken und einem Chiptune-Soundtrack.",
+      newsletterDescription: "Melde dich für unseren Newsletter an, um exklusive Updates zu neuen Funktionen, Fortschritten in der Spielentwicklung und bevorstehenden Turnieren zu erhalten.",
+      subscribeButton: "Jetzt Abonnieren",
+      contactInfo: "Für Anfragen kontaktiere uns bitte über die untenstehenden Kontaktinformationen.",
+      supportEmail: "support@shapeshifterduel.com",
+    contact: "Kontakt",
+    login: "Anmelden",
+    logout: "Abmelden",
+    subscribe: "Abonnieren",
+    connectWithUs: "Verbinde dich mit uns",
+    stayUpdated: "Bleib auf dem Laufenden",
+    newsletter: "Abonniere unseren Newsletter für Updates zu neuen Funktionen und Turnieren.",
+    contactEmail: "support@shapeshifterduel.com",
+    copyright: "© 2025 Shape Shifter Duel. Alle Rechte vorbehalten.",
+    gameConcept: "Spielkonzept",
+    gameConceptDescription: "Shape Shifter Duel ist ein retro-inspirierter Arcade-Shooter, der schnelle Action mit strategischen Formveränderungsmechaniken kombiniert. Als Spieler steuerst du ein Raumschiff, das sich in drei verschiedene Formen verwandeln kann: Kreis, Dreieck und Würfel.",
+    developmentStory: "Entwicklungsgeschichte",
+    devDescription: "Das Spiel wurde ursprünglich als Java-Anwendung entwickelt und später in ein webbasiertes JavaScript-Spiel mit HTML5 Canvas umgewandelt. Dieser Übergang hat das Spiel für Spieler auf verschiedenen Plattformen zugänglicher gemacht.",
+    gameInspiration: "Shape Shifter Duel ist inspiriert von klassischen Arcade-Spielen wie Galaga und Space Invaders, fügt jedoch eine eigene einzigartige Wendung mit der Formwechselmechanik hinzu. Die Retro-Optik und die Soundeffekte sind eine Hommage an das goldene Zeitalter der Arcade-Spiele.",
+    keyFeatures: "Hauptmerkmale",
+    adventureMode: "Abenteuermodus: Durchlaufe zunehmend schwierigere Levels mit speziellen Feindmustern und Bosskämpfen...",
+    combatMode: "Kampfmodus: Ein endloser Wellenmodus, in dem du zunehmend schwierigere Feinde bekämpfst...",
+    shapeShifting: "Formwechselmechanik: Wechsle zwischen drei verschiedenen Formen, um Feindtypen zu entsprechen...",
+    powerUps: "Power-ups-System: Sammle verschiedene Power-ups, um die Fähigkeiten deines Schiffs zu verbessern...",
+    retroAesthetic: "Retro-Ästhetik: Genieße den nostalgischen Pixel-Art-Stil und chiptune-inspirierte Soundeffekte..."
+  }},
+  ja: {translation: {
+    home: "ホーム",
+   about: "ゲームについて",aboutShapeShifterDuel: "Shape Shifter Duelについて",
+    play: "プレイ",developmentStoryDescription: "このゲームは2000年代初頭にJavaアプリケーションとして開発されました。それ以来、完全なゲームに進化し、レトロな美学を維持しながら、現代的なメカニクスを導入しています。",
+      adventureModeDescription: "アドベンチャーモードでは、プレイヤーはますます挑戦的な敵や環境に満ちたレベルを進んでいきます。",
+      combatModeDescription: "コンバットモードは、プレイヤーがAIまたは他のプレイヤーと激しい1対1のバトルを繰り広げる、速いペースのアクション満載のモードです。",
+      shapeShiftingDescription: "シェイプシフティングメカニックでは、プレイヤーが異なる形態に変身し、それぞれにユニークな能力と利点があります。",
+      powerUpsSystem: "パワーアップシステム",
+      powerUpsDescription: "ゲームを通してパワーアップを収集し、健康、力、または特殊な動きをアンロックするなどして能力を強化しましょう。",
+      retroAestheticDescription: "このゲームのデザインは、80年代のクラシックなアーケードゲームに強くインスパイアされており、ピクセル化されたグラフィックとチップチューンのサウンドトラックが特徴です。",
+      newsletterDescription: "ニュースレターに登録して、新しい機能、ゲーム開発の進捗、今後のトーナメントに関する独占的なアップデートを受け取ろう。",
+      subscribeButton: "今すぐ登録",
+      contactInfo: "お問い合わせは、下記の連絡先情報からご連絡ください。",
+      supportEmail: "support@shapeshifterduel.com",
+    howToPlay: "遊び方",
+    contact: "お問い合わせ",
+    login: "ログイン",
+    logout: "ログアウト",
+    subscribe: "購読",
+    connectWithUs: "私たちとつながる",
+    stayUpdated: "最新情報を受け取る",
+    newsletter: "新機能やトーナメントの更新情報を受け取るためにニュースレターに登録してください。",
+    contactEmail: "support@shapeshifterduel.com",
+    copyright: "© 2025 Shape Shifter Duel. All rights reserved.",
+    gameConcept: "ゲームコンセプト",
+    gameConceptDescription: "Shape Shifter Duelは、レトロ風のアーケードシューティングゲームで、素早いアクションと戦略的な形態変化メカニズムを組み合わせています。プレイヤーとして、あなたは三つの異なる形態、サークル、三角形、立方体に変形できる船を操作します。",
+    developmentStory: "開発ストーリー",
+    devDescription: "ゲームは最初、Javaアプリケーションとして開発され、後にJavaScriptとHTML5 Canvasを使用したウェブベースのゲームに変換されました。この移行により、異なるプラットフォームでプレイ可能になり、アクセスが容易になりました。",
+    gameInspiration: "Shape Shifter Duelは、GalagaやSpace Invadersなどのクラシックなアーケードゲームからインスピレーションを得ていますが、形態変化メカニズムを加え独自のひねりを加えています。レトロ風のビジュアルとサウンド効果は、アーケードゲームの黄金時代に敬意を表しています。",
+    keyFeatures: "主な特徴",
+    adventureMode: "アドベンチャーモード: 特殊な敵のパターンやボスバトルが進行する難易度が高いレベルを進んでいきます...",
+    combatMode: "コンバットモード: 無限のウェーブに基づいたチャレンジモードで、次第に難しくなる敵に立ち向かいます...",
+    shapeShifting: "形態変化メカニズム: 三つの異なる形態を切り替えて敵タイプに対応します...",
+    powerUps: "パワーアップシステム: 船の能力を向上させるために様々なパワーアップを収集します...",
+    retroAesthetic: "レトロ美学: ノスタルジックなピクセルアートスタイルとチップチューン風のサウンド効果をお楽しみください...",
+    gameDescription:"ゲームプレイの中心は、最大ダメージを与えるために自分の形を敵のタイプに合わせることです。これにより、素早い反応と戦略的な判断が同等に重要な、ダイナミックな戦闘システムが生まれます。"
+  }},
+te:{translation:{
+  home: "హోం",
+   about: "గురించి",
+    gameDescription:"గరిష్ట నష్టం కలిగించేందుకు మీ ఆకారాన్ని శత్రువుల రకాలతో సరిపోల్చే ప్రక్రియలోనే ప్రధాన గేమ్‌ప్లే ఉంటుంది. ఇది వేగవంతమైన ప్రతిచర్యలు మరియు వ్యూహాత్మక నిర్ణయాలు రెండూ ముఖ్యమైన డైనమిక్ కాంబాట్ సిస్టమ్‌ను రూపొందిస్తుంది.",
+    
+    play: "ఆడండి",
+    howToPlay: "ఎలా ఆడాలి",
+    contact: "సంప్రదించండి",
+    login: "లాగిన్",
+    logout: "లాగౌట్",aboutShapeShifterDuel: "షేప్ షిఫ్టర్ డ్యూయల్ గురించి",
+    subscribe: "సబ్‌స్క్రైబ్ చేయండి",
+    connectWithUs: "మనతో కనెక్ట్ అవ్వండి",
+    stayUpdated: "తాజాగా ఉండండి",
+    newsletter: "కొత్త ఫీచర్లు మరియు టోర్నమెంట్లపై అప్డేట్‌లు కోసం మా న్యూస్‌లెటర్‌కు సబ్‌స్క్రైబ్ చేయండి.",
+    contactEmail: "support@shapeshifterduel.com",
+    copyright: "© 2025 Shape Shifter Duel. అన్ని హక్కులు కాపీచేయబడ్డవి.",
+    gameConcept: "ఆడటం కాన్సెప్ట్",
+    gameConceptDescription: "షేప్ షిఫ్టర్ డ్యూయల్ ఒక రెట్రో-ప్రేరిత ఆర్కేడీ షూటర్ గేమ్, ఇది వేగవంతమైన చర్యను మరియు వ్యూహాత్మక షేప్-షిఫ్టింగ్ మెకానిక్స్‌ను కలపుతుంది.",
+    developmentStory: "వికాసం కథ",
+    devDescription: "ఈ గేమ్ మొదట జావా అప్లికేషన్‌గా అభివృద్ధి చేయబడింది మరియు తరువాత HTML5 క్యాన్వాస్‌తో వెబ్-ఆధారిత జావాస్క్రిప్ట్ గేమ్‌గా మార్చబడింది.",
+    gameInspiration: "షేప్ షిఫ్టర్ డ్యూయల్ గాలాగా మరియు స్పేస్ ఇన్‌వేడర్స్ వంటి క్లాసిక్ ఆర్కేడీ గేమ్‌ల నుండి ప్రేరణను పొందింది.",
+    keyFeatures: "ప్రధాన లక్షణాలు",
+    adventureMode: "అడ్వెంచర్ మోడ్: ప్రత్యేక శత్రు నమూనాలు మరియు బాస్ యుద్ధాలతో కఠినమైన స్థాయిల్లో పురోగతి.",
+    combatMode: "కాంబాట్ మోడ్: మీరు పెరుగుతున్న శత్రువులతో లెవెల్స్‌లో తలపడే ఎండ్లెస్ వేవ్-ఆధారిత చాలెంజ్ మోడ్.",
+    shapeShifting: "షేప్-షిఫ్టింగ్ మెకానిక్: శత్రువుల రకాలను సరిపోయే మూడు వేర్వేరు ఆకృతుల మధ్య మార్చండి.",
+    powerUps: "పవర్-అప్‌లు సిస్టం: మీ షిప్ సామర్థ్యాలను పెంచేందుకు వివిధ పవర్-అప్‌లను సేకరించండి.",
+    retroAesthetic: "రెట్రో ఎస్తెటిక్: నోస్టాల్జిక్ పిక్సెల్ ఆర్ట్ శైలి మరియు చిప్ట్యూన్-ప్రేరిత శబ్ద ప్రభావాలను ఆస్వాదించండి.", developmentStoryDescription: "ఈ గేమ్‌ను 2000లు ప్రారంభంలో జావా అప్లికేషన్‌గా అభివృద్ధి చేశారు. అప్పటినుంచి ఇది పూర్తిగా అభివృద్ధి చెందింది, మరియు ఇప్పటికీ రెట్రో ఎస్తెటిక్స్‌ని కాపాడుతూ, ఆధునిక మెకానిక్స్‌ను పరిచయం చేసింది.",
+      adventureModeDescription: "అడ్వెంచర్ మోడ్‌లో, ప్లేయర్లు ప్రతిభావంతమైన శత్రువులు మరియు పరిసరాలతో నిండిన స్థాయిలను చేరుకోవడానికి ప్రయాణం ప్రారంభిస్తారు.",
+      combatModeDescription: "కాంబాట్ మోడ్‌లో, ప్లేయర్లు AI లేదా ఇతర ప్లేయర్లతో 1-1 యుద్ధాలలో పాల్గొనే వేగవంతమైన, యాక్షన్‌తో నిండిన మోడ్.",
+      shapeShiftingDescription: "షేప్-షిఫ్టింగ్ మెకానిక్ ద్వారా, ప్లేయర్లు వివిధ రూపాల్లోకి మారిపోవచ్చు, వాటి ప్రతి రూపం ప్రత్యేకమైన సామర్థ్యాలు మరియు లాభాలను కలిగి ఉంటుంది.",
+      powerUpsSystem: "పవర్-అప్స్ సిస్టమ్",
+      powerUpsDescription: "గేమ్‌లో పవర్-అప్స్‌ను సేకరించి మీ సామర్థ్యాలను మెరుగుపరచండి, ఆరోగ్యం, శక్తి పెంచడం లేదా ప్రత్యేక చల movementsలు తెరవడం.",
+      retroAestheticDescription: "ఈ గేమ్ యొక్క డిజైన్ 80ల అర్కేడే గేమ్స్ నుండి ప్రేరణ పొందింది, పిక్సెల్-ఆధారిత గ్రాఫిక్స్ మరియు చిప్‌ట్యూన్ సంగీతంతో.",
+      newsletterDescription: "మా న్యూస్‌లెటర్‌కు సబ్‌స్క్రైబ్ చేసి, కొత్త ఫీచర్లు, గేమ్ అభివృద్ధి పురోగతి మరియు రాబోయే టోర్నమెంట్‌లపై ప్రత్యేకమైన అప్డేట్‌లు పొందండి.",
+      subscribeButton: "ఇప్పుడు సబ్‌స్క్రైబ్ చేయండి",
+      contactInfo: "ప్రశ్నల కోసం, దయచేసి క్రింది సంప్రదింపు వివరాల ద్వారా మమ్మల్ని సంప్రదించండి.",
+      supportEmail: "support@shapeshifterduel.com"
+  
+}}
+}; i18next.init({
+      lng: 'en',
+      debug: true,
+      resources
+    }, function(err, t) {
+      jqueryI18next.init(i18next, $, { useOptionsAttr: true });
+      $('body').localize();
+    });
+
+    document.querySelector('.language-selector select').addEventListener('change', function () {
+      const selectedLang = this.value;
+      i18next.changeLanguage(selectedLang, () => {
+        $('body').localize();
+      });
+    });
+  window.onload = updateUserDisplay;
+</script>
+
+</body>
+</html>

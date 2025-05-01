@@ -1,0 +1,133 @@
+<header>
+<nav>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active" data-i18n="nav_home">Home</a></li>
+      <li><a href="about.html" data-i18n="nav_about">About</a></li>
+      <li><a href="play.html" data-i18n="nav_play">Play</a></li>
+      <li><a href="how-to-play.html" data-i18n="nav_how">How to Play</a></li>
+      <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+    </ul>
+  </nav>
+  <div class="user-dashboard" id="user-dashboard">
+    <div class="user-info" id="user-info">
+      <div class="user-profile" id="user-profile">
+          <img id="profile-image" src="homepage11.jpg" alt="Profile Image" class="profile-img">
+          <div class="username-generation">
+            <span id="profile-username"></span>
+            <span id="profile-generation"></span>
+          </div>
+          <button class="profile-dropdown-btn">▼</button>
+          <div class="dropdown" id="profile-dropdown">
+            <span id="profile-generation"></span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+          </div>
+        </div>
+      <div id="guest-info" style="display: block;">
+        <a href="login.html" class="login-link">Login</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main style="background-image: url('homepage1.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;">
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h2 data-i18n="welcome_message">Welcome to Shape Shifter Duel</h2>
+        <div class="cta-buttons">
+          <a href="play.html" class="btn btn-primary" data-i18n="play_now">Play Now</a>
+          <a href="how-to-play.html" class="btn btn-secondary" data-i18n="learn_how">Learn How to Play</a>
+        </div>
+      </div>
+      <div class="hero-image"></div>
+    </div>
+  </section>
+
+  <section class="features-preview">
+    <div class="container">
+      <h2 data-i18n="game_features">Game Features</h2>
+      <div class="features">
+        <div class="feature">
+          <h3 data-i18n="adventure_mode">Adventure Mode</h3>
+          <p data-i18n="adventure_desc">Progress through increasingly difficult levels with new challenges and enemy patterns.</p>
+        </div>
+        <div class="feature">
+          <h3 data-i18n="combat_mode">Combat Mode</h3>
+          <p data-i18n="combat_desc">Face endless waves of enemies in an intense battle for high scores and survival.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials" style="color: rgb(0, 0, 0);">
+    <div class="container">
+      <h2 data-i18n="player_testimonials">Player Testimonials</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial" style="background-color: rgba(0, 0, 0, 0.5); color: white;">
+          <p>"The shape-shifting mechanics add a whole new layer of strategy to the classic arcade shooter format!"</p>
+          <p class="author">- Arcade Enthusiast</p>
+        </div>
+        <div class="testimonial" style="background-color: rgba(0, 0, 0, 0.5); color: white;">
+          <p>"I love how the difficulty gradually increases. The combat mode is perfect for when I just want to jump in for a quick gaming session."</p>
+          <p class="author">- Casual Gamer</p>
+        </div>
+        <div class="testimonial" style="background-color: rgba(0, 0, 0, 0.5); color: white;">
+          <p>"The retro aesthetic combined with modern gameplay mechanics makes this a standout indie game."</p>
+          <p class="author">- Game Reviewer</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer style="background-color: black;">
+  <div class="container">
+    <div class="footer-grid" style="display: flex;">
+      <div class="footer-section">
+        <h4 data-i18n="navigation">Navigation</h4>
+        <ul>
+          <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+          <li><a href="about.html" data-i18n="nav_about">About</a></li>
+          <li><a href="play.html" data-i18n="nav_play">Play</a></li>
+          <li><a href="how-to-play.html" data-i18n="nav_how">How to Play</a></li>
+          <li><a href="login.html">Login/Signup</a></li>
+          <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Connect With Us</h4>
+        <div class="social-links">
+          <a href="https://discord.com/" class="social-link discord"><span>Discord</span></a>
+          <a href="https://www.youtube.com/" class="social-link youtube"><span>YouTube</span></a>
+          <a href="https://x.com/home?lang=en" class="social-link twitter"><span>Twitter</span></a>
+          <a href="https://www.instagram.com/" class="social-link instagram"><span>Instagram</span></a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h4>Stay Updated</h4>
+        <p>Subscribe to our newsletter for updates on new features and tournaments.</p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Your email address">
+          <button type="submit" class="btn btn-accent">Subscribe</button>
+        </div>
+        <div class="contact-info">
+          <p>Contact: <a href="mailto:support@shapeshifterduel.com">support@shapeshifterduel.com</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="language-selector">
+        <select>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+          <option value="de">Deutsch</option>
+          <option value="ja">日本語</option>
+        </select>
+      </div>
+      <p class="copyright">
+        &copy; 2025 Shape Shifter Duel. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>

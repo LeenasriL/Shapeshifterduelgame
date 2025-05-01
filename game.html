@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shape Shifter Duel - Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono&display=swap" rel="stylesheet">
+</head>
+<body class="game-active">
+    <header>
+        <div class="logo-container">
+            <h1 class="site-title">Shape Shifter Duel</h1>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="play.html">Play</a></li>
+                <li><a href="how-to-play.html">How to Play</a></li>
+                <li><a href="login.html">Login/Signup</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="fullscreen-game">
+        <div class="game-view">
+            <canvas id="gameCanvas"></canvas>
+            <div class="game-overlay" id="game-overlay">
+                <div id="game-message"></div>
+                <button id="back-btn" class="btn btn-secondary">Back to Menu</button>
+            </div>
+        </div>
+    </main>
+
+   <!-- Game Scripts -->
+   <script src="gameColors.js"></script>
+   <script src="level.js"></script>
+   <script src="gameUI.js"></script>
+   <script src="levelTransition.js"></script>
+   <script src="combatMode.js"></script>
+   <script src="duelMode.js"></script>
+   <script src="game.js"></script>
+   
+   <script>
+       // Game interface handling
+       document.addEventListener('DOMContentLoaded', function() {
+           // Get elements
+           const singlePlayerBtn = document.getElementById('single-player-btn');
+           const duelPlayerBtn = document.getElementById('duel-player-btn');
+           const startGameBtn = document.getElementById('start-game-btn');
+           const backBtn = document.getElementById('back-btn');
+           const levelButtons = document.querySelectorAll('.level-btn');
+           const playerTwo = document.querySelector('.player-two');
+           const gameCanvas = document.getElementById('gameCanvas');
+           const gameOverlay = document.getElementById('game-overlay');
+           const gameStatus = document.getElementById('game-status');
+           const welcomeMessage = document.getElementById('welcome-message');
+           
+           // Set initial game mode and level
+           let gameMode = 'single';
+           let selectedLevel = 1;
+           
+           // Check if user is logged in (from localStorage)
+           const user = localStorage.getItem('currentUser');
+           if (user) {
+               try {
+                   const userData = JSON.parse(user);
+                   welcomeMessage.textContent = `Welcome, ${userData.username}!`;
+               } catch (e) {
+                   welcomeMessage.textContent = '';
+               }
+           }
+           
+           // Set canvas to full size
+           function resizeCanvas() {
+               const gameView = document.querySelector('.game-view');
+               gameCanvas.width = gameView.offsetWidth;
+               gameCanvas.height = gameView.offsetHeight;
+           }
+           
+           // Initial resize and on window resize
+           resizeCanvas();
+           window.addEventListener('resize', resizeCanvas);
+           
+           // Mode selection
+           singlePlayerBtn.addEventListener('click', function() {
+               gameMode = 'single';
+               singlePlayerBtn.classList.add('active');
+               duelPlayerBtn.classList.remove('active');
+               playerTwo.style.display = 'none';
+               document.getElementById('level-selector').style.display = 'block';
+           });
+           
+           duelPlayerBtn.addEventListener('click', function() {
+               gameMode = 'duel';
+               duelPlayerBtn.classList.add('active');
+               singlePlayerBtn.classList.remove('active');
+               playerTwo.style.display = 'block';
+               document.getElementById('level-selector').style.display = 'block';
+           });
+           
+           // Level selection
+           levelButtons.forEach(button => {
+               button.addEventListener('click', function() {
+                   selectedLevel = parseInt(this.getAttribute('data-level'));
+                   levelButtons.forEach(btn => btn.classList.remove('active'));
+                   this.classList.add('active');
+               });
+           });
+           
+           // Activate first level button by default
+           levelButtons[0].classList.add('active');
+           
+           // Start game
+           startGameBtn.addEventListener('click', function() {
+               const gameModeSelector = document.querySelector('.game-mode-selector');
+               gameModeSelector.style.display = 'none';
+               gameOverlay.style.display = 'none';
+               
+               // Initialize game with selected mode and level
+               if (gameMode === 'single') {
+                   // Initialize single player game at specific level
+                   window.game.startSinglePlayerGame(selectedLevel);
+               } else {
+                   // Initialize duel mode
+                   window.game.startDuelGame(selectedLevel);
+               }
+               
+               // Add game-active class to hide footer during gameplay
+               document.body.classList.add('game-active');
+               
+               // Focus on canvas for keyboard input
+               gameCanvas.focus();
+           });
+           
+           // Back button
+           backBtn.addEventListener('click', function() {
+               const gameModeSelector = document.querySelector('.game-mode-selector');
+               gameModeSelector.style.display = 'block';
+               gameOverlay.style.display = 'none';
+               
+               // Stop the current game
+               if (window.game) {
+                   window.game.stopGame();
+               }
+               
+               // Remove game-active class to show footer again
+               document.body.classList.remove('game-active');
+           });
+           
+           // Hide overlay initially
+           gameOverlay.style.display = 'none';
+           
+           // Global event to show game over
+           window.addEventListener('game-over', function(e) {
+               gameOverlay.style.display = 'flex';
+               document.getElementById('game-message').textContent = e.detail.message;
+           });
+       });
+   </script>
+</body>
+</html>

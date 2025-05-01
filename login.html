@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shape Shifter Duel - Guest Access</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary-color: #001219;
+      --accent-color: #ffffff;
+      --text-color: #ffffff;
+      --health-red: #9B2226;
+      --success-green: #94D2BD;
+      --link-hover: #EE9B00;
+      --background-dark: #001219;
+      --text-light: #ffffff;
+      --warning-yellow: #CA6702;
+      --danger-red: #ffffff;
+    }
+    input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+select {
+  transition: all 0.3s ease;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: 1px solid #000000;
+  font-family: 'Roboto Mono', monospace;
+  padding: 0.8rem;
+  border-radius: 6px;
+  width: 100%;
+}
+
+input:focus,
+input:valid,
+select:focus,
+select:valid {
+  background-color: #ffffff;
+  box-shadow: 0 0 18px rgb(187, 255, 0);
+  border: 3px solid var(--success-green);
+  outline:#ffffff;
+}
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+select {
+  transition: all 0.3s ease;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: 1px solid #000000;
+  font-family: 'Roboto Mono', monospace;
+  padding: 0.8rem;
+  border-radius: 6px;
+  width: 100%;
+}
+
+/* When focused OR filled */
+input:focus,
+input:not(:placeholder-shown),
+select:focus,
+select:valid {
+  background-color: #e5ffcc;
+  box-shadow: 0 0 18px rgba(187, 255, 0, 0.8);
+  border: 3px solid var(--success-green);
+  outline: none;
+}
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.btn.btn-primary {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  background-color: rgb(255, 255, 255);
+  color: #000;
+  font-family: 'Press Start 2P', cursive;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px var(--success-green);
+}
+
+.btn.btn-primary:hover {
+  transform: scale(1.5);
+  box-shadow: 0 0 20px gold;
+  background-color: rgb(0, 98, 85);
+}
+
+.btn.btn-primary:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 25px #bbff00;
+  background-color: #bbff00;
+  color: #000;
+}
+
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <h1 class="site-title">Shape Shifter Duel</h1>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="play.html">Play</a></li>
+        <li><a href="how-to-play.html">How to Play</a></li>
+        <li><a href="login.html" class="active">Guest</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main style="position: relative; overflow: hidden;">
+    <div style="
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: url('modern-geometric.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: beige;
+      background-attachment: fixed;
+      opacity: 0.5;
+      z-index: 0;
+    "></div>
+
+    <section class="auth-section" style="position: relative; z-index: 1;">
+      <div class="container">
+        <h2>Guest Access</h2>
+
+        <div class="auth-container" style="
+          background: rgba(255, 255, 255, 0.4);
+          padding: 2rem;
+          border-radius: 12px;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+          max-width: 500px;
+          margin: 0 auto;
+          backdrop-filter: blur(4px);
+        ">
+         <form id="guest-form" style="display: flex; flex-direction: column; gap: 0rem;">
+            <div class="form-group">
+              <label for="guest-username">Username</label>
+              <input type="text" id="guest-username" name="username" placeholder="Enter username" required>
+            </div>
+          
+            <div class="form-group">
+              <label for="guest-email">Email</label>
+              <input type="email" id="guest-email" name="email" placeholder="Enter email" required>
+            </div>
+          
+            <div class="form-group" style="display: flex; flex-direction: column;">
+              <label for="guest-age">Age</label>
+              <input type="number" id="guest-age" name="age" placeholder="Enter age" required min="1"
+                style="width: 200px; padding: 0.5rem; border-radius: 8px; border: 1px solid #000000;width: 100%;
+                padding: 0.8rem;
+                background-color: var(--primary-color);
+                border: 1px solid #444;
+                color: var(--text-color);
+                border-radius: 3px;
+                font-family: 'Roboto Mono', monospace;">
+            </div>
+          
+            <div class="form-group">
+              <label for="guest-password">Password</label>
+              <input type="password" id="guest-password" name="password" placeholder="Enter password" required>
+            </div>
+          
+            <div class="form-group">
+              <label for="guest-gender">Gender</label>
+              <select id="guest-gender" name="gender" required style="padding: 0.5rem; border-radius: 8px;width: 100%;
+              padding: 0.8rem;
+              background-color: var(--primary-color);
+              border: 1px solid #444;
+              color: var(--text-color);
+              border-radius: 3px;
+              font-family: 'Roboto Mono', monospace;">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="nonbinary">Non-binary</option>
+                <option value="prefer-not">Prefer not to say</option>
+              </select>
+            </div>
+          
+            <div class="form-actions" style="text-align: center; margin-top: 0.5rem;">
+              <button type="submit" class="btn btn-primary"
+                style="align-items: center; justify-content: center; padding: 0.75rem 2rem; font-size: 1rem; border-radius: 12px; cursor: pointer;">
+                Enter Game
+              </button>
+            </div>
+          </form>
+           
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const guestForm = document.getElementById('guest-form');
+
+      guestForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const username = document.getElementById('guest-username').value.trim();
+        const email = document.getElementById('guest-email').value.trim();
+        const age = document.getElementById('guest-age').value;
+        const password = document.getElementById('guest-password').value;
+        const gender = document.getElementById('guest-gender').value;
+
+        if (!username || !email || !age || !password || !gender) {
+          alert("Please fill in all fields.");
+          return;
+        }
+
+        const guestUser = {
+          id: 'guest_' + Date.now(),
+          username,
+          email,
+          age,
+          gender,
+          password,
+          level: 1,
+          highScore: 0,
+          guest: true
+        };
+
+        localStorage.setItem('currentUser', JSON.stringify(guestUser));
+
+        // Redirect to the main page (or game)
+        window.location.href = 'index.html';
+      });
+    });
+  </script>
+</body>
+</html>
